@@ -1,8 +1,332 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@import url(https://fonts.googleapis.com/css?family=Cookie|Raleway:300,700,400);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 1em;
 }
 
-a {
-  color: #00B7FF;
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+	font-family: 'Raleway', sans-serif;
+	background-image: url('/images/soccerbg.jpg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+*:focus {
+  outline: none;
+}
+
+.container-fluid {
+  height: 100%;
+}
+
+.row {
+  height: 100%;
+}
+
+.index-page {
+  background-image: url('/footbook/public/images/soccerbg.jpg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.login-page {
+  position: absolute;
+  z-index: 15;
+  background-color: rgba(0, 0, 0, 0.199);
+  display: block;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.signup-page {
+  position: absolute;
+  display: none;
+  z-index: 15;
+  background-color: rgba(0, 0, 0, 0.199);
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.form-div {
+  background-color: rgba(209, 206, 206, 0.644);
+  border-radius: 18px;
+  border: 2px solid rgba(0, 0, 0, 0);
+}
+
+.btn-show-contact100 {
+  font-size: 15px;
+  font-weight: bold;
+  color: #42A746;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+  min-width: 110px;
+  height: 42px;
+  background-color: #fff;
+  border-radius: 21px;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+button {
+	outline: none !important;
+	border: none;
+	background: transparent;
+}
+
+.btn-show-contact100:hover {
+  cursor: pointer;
+  background-color: #42A746;
+  color: white;
+}
+
+iframe {
+	border: none !important;  
+}
+
+.btn-hide-contact100 {
+  font-size: 90px;
+  color: #42A746;
+  opacity: 0.6;
+  position: absolute;
+  z-index: 20;
+  font-weight: bold;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.btn-hide-contact100:hover {
+  opacity: 1;
+  color: white;
+}
+
+
+.logo-nav img {
+  width: 70%
+}
+
+.search-bar {
+    background-color: transparent !important;
+    border: 0px !important;
+    margin: 0px !important;
+    padding: 0px !important;
+    width: 100% !important;
+    text-overflow: ellipsis !important;
+    font-weight: 800 !important;
+    font-size: 17px !important;
+    color: #757373 !important;
+    height: 100%;
+}
+
+.search-div {
+    border: 1px solid rgb(207, 205, 205) !important;
+    border-radius: 4px !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    height: 30px;
+    width: 100%;
+}
+
+.container-login {
+	border-radius: 0.5em;
+	box-shadow: 0 0 1em 0 rgba(51,51,51,0.25);
+	display: block;
+	max-width: 480px;
+	overflow: hidden;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	padding: 2em;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 10;
+  width: 80%;
+}
+.container-login:before{
+	background-color: rgba(255, 255, 255, 0.664);
+	background-size: cover;
+	content: '';
+	-webkit-filter: blur(10px);
+	filter: blur(10px);
+	height: 100vh;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: -1;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	width: 100vw;
+}
+.container-login:after{
+	background: rgba(255,255,255,0.6);
+	content: '';
+	display: block;
+	height: 100%;
+	position: absolute;
+		top: 0;
+		left: 0;
+		z-index: -1;
+	width: 100%;
+}
+
+form button.submit{
+	background: #27ae60;
+	color: white;
+	border: 1px solid rgba(51, 51, 51, 0);
+	line-height: 1em;
+	border-radius: 12px;
+	padding: 0.5em 0.5em;
+	-webkit-transition: all 0.25s;
+	transition: all 0.25s;
+}
+form button:hover,
+form button:focus,
+form button:active,
+form button.loading{
+	background: white;
+	color: #27ae60;
+	outline: none;
+}
+form button.success{
+	background: #27ae60;
+	border-color: #27ae60; 
+	color: #fff;
+}
+@-webkit-keyframes spin{
+	from{ transform: rotate(0deg); }
+	to{ transform: rotate(360deg); }
+}
+@keyframes spin{
+	from{ transform: rotate(0deg); }
+	to{ transform: rotate(360deg); }
+}
+form button span.loading-spinner{
+	-webkit-animation: spin 0.5s linear infinite;
+	animation: spin 0.5s linear infinite;
+	border: 2px solid #fff;
+	border-top-color: transparent;
+	border-radius: 50%;
+	display: inline-block;
+	height: 1em;
+	width: 1em;
+}
+
+form label{
+	border-bottom: 1px solid #333;
+	display: block;
+	font-size: 1.25em;
+	margin-bottom: 0.5em;
+	-webkit-transition: all 0.25s;
+	transition: all 0.25s;
+}
+form label.col-one-half{
+	float: left;
+	width: 50%;
+}
+form label.col-one-half:nth-of-type(even){
+	border-left: 1px solid #333;
+	padding-left: 0.25em;
+}
+form label input{
+	background: none;
+	border: none;
+	line-height: 1em;
+	font-weight: 300;
+	padding: 0.125em 0.25em;
+	width: 100%;
+}
+form label input:focus{
+	outline: none;
+}
+form label input:-webkit-autofill{
+	background-color: transparent !important;
+}
+form label span.label-text{
+	display: block;
+	font-size: 0.5em;
+	font-weight: bold;
+	padding-left: 0.5em;
+	text-transform: uppercase;
+	-webkit-transition: all 0.25s;
+	transition: all 0.25s;
+}
+
+
+h1{
+	font-size: 3em;
+	margin: 0 0 0.5em 0;
+	text-align: center;
+	font-family: 'Cookie', cursive;
+}
+h1 img{
+	height: auto;
+	margin: 0 auto;
+	width: 300px;
+}
+html{
+	font-size: 18px;
+	height: 100%;
+}
+
+.text-center{
+	text-align: center;
+}
+
+/* //////////////////SIGN UP PAGE */
+
+.container-signup {
+	border-radius: 0.5em;
+	box-shadow: 0 0 1em 0 rgba(51,51,51,0.25);
+	display: block;
+	max-width: 480px;
+	overflow: hidden;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	padding: 2em;
+	position: absolute;
+		top: 50%;
+		left: 50%;
+		z-index: 10;
+  width: 80%;
+}
+.container-signup:before{
+	background-color: rgba(255, 255, 255, 0.664);
+	background-size: cover;
+	content: '';
+	-webkit-filter: blur(10px);
+	filter: blur(10px);
+	height: 100vh;
+	position: absolute;
+		top: 50%;
+		left: 50%;
+		z-index: -1;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	width: 100vw;
+}
+.container-signup:after{
+	background: rgba(255,255,255,0.6);
+	content: '';
+	display: block;
+	height: 100%;
+	position: absolute;
+		top: 0;
+		left: 0;
+		z-index: -1;
+	width: 100%;
 }

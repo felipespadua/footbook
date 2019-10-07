@@ -11,8 +11,10 @@ const path         = require('path');
 const session = require("express-session");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
+const User = require("./models/User")
 const LocalStrategy = require("passport-local").Strategy;
 const flash = require("connect-flash");
+
 
 
 mongoose

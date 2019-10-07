@@ -69,11 +69,21 @@ router.post("/login", passport.authenticate("local", {
   passReqToCallback: true
 }));
 
-router.get('/newmatch', ensureAuthenticated, (req, res, next) => {
-  res.render('newmatch')
+router.get('/matches', ensureAuthenticated, (req, res, next) => {
+  Match.find()
+    .then( matches => {
+        render('matches', matches )
+    })
+    .catch( err => {
+      console.log("Ocorreu um erro ao encontrar as partidas: ", err)
+    })
 });
 
-router.post('/newevent', ensureAuthenticated, (req, res, next) => {
+router.get('/match/add', ensureAuthenticated, (req, res, next) => {
+  res.render('match-add')
+});
+
+router.post('/match/add', ensureAuthenticated, (req, res, next) => {
   const {title, totalPlayers, description, field, participants, longitude, latitude }  = req.body;
   const owner = req.user;
   let location = {
@@ -91,22 +101,52 @@ router.post('/newevent', ensureAuthenticated, (req, res, next) => {
   });
   newMatch.save()
     .then( result => console.log(`Match ${name} criado com sucesso`))
-    .catch( err => console.log(`Ocorreu um erro ao criar evento: ${err}`))
+    .catch( err => console.log(`Ocorreu um erro ao criar match: ${err}`))
 
 });
 
-router.get('/newevent/edit/:id', ensureAuthenticated, (req, res, next) => {
+router.get('/match/edit/:id', ensureAuthenticated, (req, res, next) => {
     const { id } = req.params;
-    Event.findById(id)
-      .then( event => {
-        if(event.owner != req.user){
-          console.log("Usuario nao e dono desse evento")
+    Match.find(id)
+      .populate('owner')
+      .populate('participants')
+      .populate('field')
+      .then( match => {
+        if(match.owner.name != req.user){
+          res.redirect('/newmatch/edit', { message: "You are not the owner of this match"})
         }else {
-
+          res.render('match-edit', match)
         }
+      })
+      .catch( err => {
+        console.log("Ocorreu um erro ao editar a partida: ", err)
       })
 });
 
+router.post('/match/edit/:id', ensureAuthenticated, (req, res, next) => {
+  const { id } = req.params;
+  const  {title, totalPlayers, description, field, participants, longitude, latitude } = req.body;
+  let location = {
+    type: 'Point',
+	  coordinates: [longitude, latitude]
+  }
+  const updateMatch ={
+    title,
+    owner,
+    description,
+    totalPlayers,
+    participants,
+    location,
+    field
+  }
+  Match.findByIdAndUpdate(id, updateMatch)
+    .then( match => {
+      res.render('matches', { message: "Match Updated Succesfully!"})
+    })
+    .catch( err => {
+      res.render('match-edit', { message: "An error ocurred while updating match"})
+    })
+});
 // router.get('/events/search/', ensureAuthenticated, (req, res, next) => {
 //   const { query, typeQuery } = req.body;
 //   Event.find()

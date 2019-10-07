@@ -329,3 +329,59 @@ html{
 		z-index: -1;
 	width: 100%;
 }
+
+
+///////////// PAGES
+
+
+.logo-nav img {
+  width: 100%
+}
+
+.search-bar {
+    background-color: transparent !important;
+    border: 0px !important;
+    margin: 0px !important;
+    padding: 0px !important;
+    width: 100% !important;
+    text-overflow: ellipsis !important;
+    font-weight: 800 !important;
+    font-size: 17px !important;
+    color: #757373 !important;
+    height: 100%;
+}
+
+.search-div {
+    border: 1px solid rgb(207, 205, 205) !important;
+    border-radius: 4px !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+    height: 50px;
+    width: 100%;
+}
+
+.text-success {
+  font-weight: bold !important;
+  color: green !important;
+  font-size: .85rem;
+}
+
+.title-page {
+  height: 40px;
+}
+
+.content-card {
+  height: 100%;
+  width: 100%;
+}
+
+.field-card {
+  height: 200px;
+  border: 1px solid rgb(207, 205, 205) !important;
+  border-radius: 5px !important;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.329) !important;
+}
+
+.black-text {
+  font-weight: bolder;
+  font-size: 1.2rem;
+}

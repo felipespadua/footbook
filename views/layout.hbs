@@ -13,7 +13,46 @@
 </head>
 <body>
 
+  {{#if user}}
+  <div class="container-fluid fixed-top nav-bar mx-0 px-0 d-flex justify-content-center">
+    <div class="row d-flex justify-content-center nav-block">
+      <div class="pt-2 col-2 text-start logo-nav d-none d-md-block">
+        <img src="/logo-footbook2.png" alt="">
+      </div>
+      <div class="col-12 col-md-5 text-center d-flex align-items-center justify-content-center">
+        <div class="row search-div">
+          <div class="col-1 px-0 mx-0 d-flex align-items-center justify-content-center">
+            <i class="material-icons">search</i>
+          </div>
+          <div class="col-11 px-0">
+            <input class="search-bar" type="text">
+          </div>
+        </div>
+      </div>
+      <div class="col-5 text-center d-none d-sm-block">
+        <div class="row d-flex justify-content-center">
+          <div class="col-2 pt-2 d-flex align-items-center justify-content-center">
+            <p class="mb-0 "><a href="#" class="text-success">Teams</a></p>
+          </div>
+          <div class="col-2 pt-2 d-flex align-items-center justify-content-center">
+            <p class="mb-0 "><a href="#" class="text-success">Matches</a></p>
+          </div>
+          <div class="col-2 pt-2 d-flex align-items-center justify-content-center">
+            <p class="mb-0 "><a href="#" class=" text-success">Messages</a></p>
+          </div>
+          <div class="col-2 pt-2 d-flex align-items-center justify-content-center">
+            <p class="mb-0 "><a href="#" class=" text-success">Datasheet</a></p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/if}}
   {{{body}}}
+
+
+
 
   <script src="/javascripts/script.js"></script>
 </body>

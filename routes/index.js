@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const User = require("../models/User")
+const User = require("../models/User");
 const Match = require("../models/Match")
 const Field = require("../models/Field")
 
@@ -61,7 +61,6 @@ router.post("/signup", (req, res, next) => {
   })
 });
 
-
 router.post("/login", passport.authenticate("local", {
   successRedirect: "/matches",
   failureRedirect: "/login",
@@ -73,7 +72,7 @@ router.get('/matches', ensureAuthenticated, (req, res, next) => {
   const user = req.user;
   Match.find()
     .then( matches => {
-        render('matches', { matches, user } )
+        res.render('matches', { matches, user } )
     })
     .catch( err => {
       console.log("Ocorreu um erro ao encontrar as partidas: ", err)

@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
 const userSchema = new Schema({
-  name: { type: String },
-  password: { type: String },
-  type: { type: String, enum: ['player', 'referee', 'admin'] },
+  username: { type: String, required: true},
+  password: { type: String, required: true },
+  email: {type: String, required: true },
+  type: { type: String, enum: ['player', 'referee', 'admin'], default: 'player'},
   events: [Schema.Types.ObjectId],
   eventsOwner: [Schema.Types.ObjectId],
   friends: [Schema.Types.ObjectId]

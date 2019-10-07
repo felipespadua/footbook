@@ -40,10 +40,9 @@ body {
 
 .signup-page {
   position: absolute;
-  display: none;
   z-index: 15;
   background-color: rgba(0, 0, 0, 0.199);
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.5s ease-in-out; }
 
 .form-div {

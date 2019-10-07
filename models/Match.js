@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
-const eventSchema = new Schema({
+const matchSchema = new Schema({
   title: { type: String, required: true},
   owner: { type: Schema.Types.ObjectId, required: true},
+  description: String,
   totalPlayers: { type: Number, required: true},
   participants: {type: [Schema.Types.ObjectId] },
   location: { type: { type: String }, coordinates: [Number]},
@@ -12,7 +13,7 @@ const eventSchema = new Schema({
   timestamps: true
 });
 
-eventSchema.index({ location: '2dsphere' });
+matchSchema.index({ location: '2dsphere' });
 
-const Event = mongoose.model('Event', eventSchema);
-module.exports = Event;
+const Match = mongoose.model('Match', matchSchema);
+module.exports = Match;

@@ -7,8 +7,8 @@ const userSchema = new Schema({
   password: { type: String, required: true },
   email: {type: String, required: true },
   type: { type: String, enum: ['player', 'referee', 'admin'], default: 'player'},
-  events: [Schema.Types.ObjectId],
-  eventsOwner: [Schema.Types.ObjectId],
+  matches: [Schema.Types.ObjectId],
+  matchesOwner: [Schema.Types.ObjectId],
   friends: [Schema.Types.ObjectId]
 }, {
   timestamps: true

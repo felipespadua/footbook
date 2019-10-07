@@ -3,7 +3,7 @@ const Schema   = mongoose.Schema;
 
 const fieldSchema = new Schema({
   name: { type: String, required: true},
-  location: { type: { type: String }, coordinates: [Number], required: true},
+  location: { type: { type: String }, coordinates: [Number]},
   description: String,
   imgName: String,
   imgPath: String,

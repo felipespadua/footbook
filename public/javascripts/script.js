@@ -1,55 +1,11 @@
-// function geolocate() {
-//   if (navigator.geolocation) {
-//     navigator.geolocation.getCurrentPosition(function(position) {
-//       var geolocation = {
-//         lat: position.coords.latitude,
-//         lng: position.coords.longitude
-//       };
-//       var circle = new google.maps.Circle(
-//           {center: geolocation, radius: position.coords.accuracy});
-//       autocomplete.setBounds(circle.getBounds());
-//     });
-//   }
-// }
-
-// var map;
-// function initialize(){
-
-//   var mapOptions = {
-//     zoom: 12,
-//     center: new google.maps.LatLng(-34.397,150.644)
-//   };
-//   map = new google.maps.Map(document.getElementById('map'), mapOptions)
-// }
-// google.maps.event.addDomListener(window,'load',initialize)
-// var defaultBounds = new google.maps.LatLngBounds(
-//   new google.maps.LatLng(-90, -180),
-//   new google.maps.LatLng(90, 180)
-// );
-// var options = {
-//   bounds: defaultBounds
-// }
-// var input =  document.getElementById('autocomplete');
-// map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-// var autocomplete = new google.maps.places.Autocomplete(input, options);
-
-
 document.addEventListener('DOMContentLoaded', () => {
 
-  const signUpPage = () => {
-    let baseurl = window.location.origin;
-    window.location.href = baseurl + "/signup"
-  }
-
-
-
-
-// Bias the autocomplete object to the user's geographical location,
-// as supplied by the browser's 'navigator.geolocation' object.
-
-
 }, false);
+const signUpPage = () => {
+  let baseurl = window.location.origin;
+  window.location.href = baseurl + "/signup"
+}
+
 function initAutocomplete() {
   // Create the autocomplete object, restricting the search predictions to
   // geographical location types.
@@ -85,8 +41,6 @@ function fillInAddress() {
   }
 }
 
-// Bias the autocomplete object to the user's geographical location,
-// as supplied by the browser's 'navigator.geolocation' object.
 function geolocate() {
   if (navigator.geolocation) {
   
@@ -103,16 +57,3 @@ function geolocate() {
     });
   }
 }
-// const login = document.querySelector('.login-page');
-// const signup = document.querySelector('.signup-page');
-
-
-// const signUpPage = () => {
-//   signup.style.display = 'block';
-//   login.style.opacity = '0';
-//   setTimeout(() => {
-//     signup.style.opacity = '1';
-//     login.style.display = 'none';
-  
-//   }, 500);
-// };

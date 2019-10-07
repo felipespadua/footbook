@@ -78,6 +78,18 @@ router.get('/matches', ensureAuthenticated, (req, res, next) => {
       console.log("Ocorreu um erro ao encontrar as partidas: ", err)
     })
 });
+router.get('/match/:id', ensureAuthenticated, (req, res, next) => {
+  const { id } = req.params;
+  const user = req.user;
+  Match.findById(id)
+    .then( match => {
+        res.render('match', { match, user } )
+    })
+    .catch( err => {
+      console.log("Ocorreu um erro ao encontrar a partida: ", err)
+    })
+});
+
 
 router.get('/match/add', ensureAuthenticated, (req, res, next) => {
   const user = req.user;
@@ -86,7 +98,7 @@ router.get('/match/add', ensureAuthenticated, (req, res, next) => {
 
 router.post('/match/add', ensureAuthenticated, (req, res, next) => {
   const user = req.user;
-  const {title, totalPlayers, description, field, participants, longitude, latitude }  = req.body;
+  const {title, totalPlayers, description, field, date, participants, longitude, latitude }  = req.body;
   const owner = user;
   let location = {
     type: 'Point',
@@ -98,6 +110,7 @@ router.post('/match/add', ensureAuthenticated, (req, res, next) => {
     description,
     totalPlayers,
     participants,
+    date,
     location,
     field
   });
@@ -132,7 +145,7 @@ router.get('/match/edit/:id', ensureAuthenticated, (req, res, next) => {
 router.post('/match/edit/:id', ensureAuthenticated, (req, res, next) => {
   const { id } = req.params;
   const user = req.user;
-  const  {title, totalPlayers, description, field, participants, longitude, latitude } = req.body;
+  const  {title, totalPlayers, description, field, date, participants, longitude, latitude } = req.body;
   let location = {
     type: 'Point',
 	  coordinates: [longitude, latitude]
@@ -143,6 +156,7 @@ router.post('/match/edit/:id', ensureAuthenticated, (req, res, next) => {
     description,
     totalPlayers,
     participants,
+    date,
     location,
     field
   }

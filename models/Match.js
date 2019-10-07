@@ -7,6 +7,7 @@ const matchSchema = new Schema({
   description: String,
   totalPlayers: { type: Number, required: true},
   participants: {type: [Schema.Types.ObjectId] },
+  date: { type: Date, required: true },
   location: { type: { type: String }, coordinates: [Number]},
   field: { type: Schema.Types.ObjectId }
 }, {

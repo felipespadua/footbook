@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
 <body>
-
+  <div id="map" ></div>
   {{#if user}}
   <div class="container-fluid fixed-top nav-bar mx-0 px-0 d-flex justify-content-center">
     <div class="row d-flex justify-content-center nav-block">
@@ -25,7 +25,7 @@
             <i class="material-icons">search</i>
           </div>
           <div class="col-11 px-0">
-            <input class="search-bar" type="text">
+            <input id="autocomplete" onFocus="geolocate()"  class="search-bar controls" type="text">
           </div>
         </div>
       </div>
@@ -51,9 +51,9 @@
   {{/if}}
   {{{body}}}
 
+    <script src="/javascripts/script.js"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAM67FmXYTA2to7SnkdpMwTQJ399FXrgeo&libraries=places&callback=initAutocomplete"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAM67FmXYTA2to7SnkdpMwTQJ399FXrgeo"></script>
 
-
-
-  <script src="/javascripts/script.js"></script>
 </body>
 </html>

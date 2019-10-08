@@ -1,4 +1,4 @@
-<div class="card card-cascade col-12 col-md-5 mb-4 mt-2 px-0">
+<div onclick='viewMatch("{{this.id}}")' class="card card-cascade col-12 col-md-5 mb-4 mt-2 px-0">
 
   <!-- Card image -->
   <div class="view view-cascade overlay">
@@ -20,7 +20,7 @@
 
       </div>
       <div class="col-6">
-        <p class="card-text">Players: 8/12 </p>
+        <p class="card-text">Players: {{this.numberOfParticipants}}/{{this.totalPlayers}} </p>
 
       </div>
     </div>

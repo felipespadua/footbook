@@ -1,18 +1,16 @@
 const mongoose = require('mongoose');
-const Field = require('../models/Field');
-const Match = require('../models/Match');
-const User = require('../models/User');
+const Field = require('./models/Field');
+const Match = require('./models/Match');
+const User = require('./models/User');
 
 const dbtitle = 'footbook';
-mongoose.connect(`mongodb://localhost/${dbtitle}`);
-User.collection.drop();
-Field.collection.drop();
-Match.collection.drop();
 
+
+Match.collection.drop();
 const matches = [
   {
     title: "Partida do Felipe",
-    owner: ObjectId("5d9b80b7ee9235249f963ff1"),
+    owner: "5d9c99d2a559473d476a416e",
     description: "Diversao Garantida!!",
     totalPlayers: 25,
     // participants: [{type: [Schema.Types.ObjectId] }],
@@ -24,7 +22,7 @@ const matches = [
   },
   {
     title: "Partida do Felipe 2",
-    owner: ObjectId("5d9b80b7ee9235249f963ff1"),
+    owner: "5d9c99d2a559473d476a416e",
     description: "Diversao Garantida!!",
     totalPlayers: 25,
     // participants: [{type: [Schema.Types.ObjectId] }],
@@ -35,7 +33,7 @@ const matches = [
     }
   }, {
     title: "Partida do Felipe 3",
-    owner: ObjectId("5d9b80b7ee9235249f963ff1"),
+    owner: "5d9c99d2a559473d476a416e",
     description: "Diversao Garantida!!",
     totalPlayers: 25,
     // participants: [{type: [Schema.Types.ObjectId] }],
@@ -47,15 +45,32 @@ const matches = [
   }
 ]
 
-const createMatches = matches.forEach( match => {
-  const newMatch = new Match(match);
-  return newMatch.save()
-    .then( response => console.log("Match criada com sucesso"))
-    .catch( err => console.log("Ocorreu um erro ao criar match",err))
-})
+mongoose
+  .connect('mongodb://localhost/footbook', {useNewUrlParser: true})
+  .then(x => {
+    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
+    User.findByIdAndUpdate("5d9c99d2a559473d476a416e", { matchesOwner: []})
+    .then(() => console.log("Atualizado com sucesso"))
+    let idArrays = [];
+    let createMatches = matches.map( match => {
+      const newMatch = new Match(match);
+      return newMatch.save()
+        .then( match =>{
+            idArrays.push(match._id)
+        } )
+        .catch( err => console.log("Ocorreu um erro ao criar match",err))
+      })
+    Promise.all(createMatches)
+      .then(match => {
+          idArrays.forEach( id => {
+            User.findByIdAndUpdate("5d9c99d2a559473d476a416e", { $push: { matchesOwner: id}})
+              .then(() => console.log("Atualizado com sucesso"))
+          })
+      })
+      .catch(err => console.log(err))
 
+  })
+  .catch(err => {
+    console.error('Error connecting to mongo', err)
+  });
 
-Promise.all(createMatches)
-.then(matches => matches.forEach(matches => console.log(`created ${matches.title}`)))
-.then(() => mongoose.connection.close())
-.catch(err => console.log("Error while saving the book: ",err))

@@ -1,4 +1,4 @@
-<div class="container-fluid signup-page">
+<div class="container-fluid signup-page bg-start">
   <div class="row">
     <div class="col-10 container-signup">
       <header>
@@ -21,10 +21,11 @@
             <input type="password" name="password">
           </label>
           <div class="text-center pt-5">
-            <button type="submit" class="submit" name="register">Sign Up</button>
+            <button type="submit" name="register" class="submit btn btn-elegant">Sign Up</button>
+            {{!-- <button type="submit" class="submit" name="register">Sign Up</button> --}}
           </div>
           {{#if message}}
-            <div class="error-message">{{message}}</div>
+            <div class="error-message text-center">{{message}}</div>
           {{/if}}
         </form>
 

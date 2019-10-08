@@ -1,5 +1,5 @@
 
-<div class="container-fluid login-page" style="display: block">
+<div class="container-fluid login-page bg-start" style="display: block">
   <div class="row">
     <div class="col-10 container-login">
       <header>
@@ -18,13 +18,15 @@
             <input type="password" name="password">
           </label>
           <div class="text-center pt-4">
-            <button class="submit" name="register">Login</button>
+            {{!-- <button class="submit" name="register">Login</button> --}}
+            <button name="register" class="submit btn btn-elegant">Login</button>
           </div>
           <div class="text-center">
             <p class="pt-3">Don't have an account? </p>
           </div>
           <div class="text-center">
-            <button onclick="signUpPage()" type="button" class="btn btn-outline-success btn-sm">Sign Up!</button>
+            {{!-- <button type="button" class="btn btn-dark-green">Dark-green</button> --}}
+            <button onclick="signUpPage()" type="button" class="btn btn-dark-green btn-sm">Sign Up!</button>
           </div>
         </form>
       </div>

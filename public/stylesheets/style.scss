@@ -390,12 +390,12 @@ html{
 }
 
 .content-card {
-  height: 100%;
+  height: 230px;
   width: 100%;
 }
 
 .field-card {
-  height: 200px;
+  height: auto;
   border: 1px solid rgb(207, 205, 205) !important;
   border-radius: 5px !important;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.329) !important;
@@ -487,3 +487,9 @@ html{
 	z-index: 10;
   width: 90%;
 }
+
+.view-cascade {
+	width: 100%;
+	height: 160px;
+}
+

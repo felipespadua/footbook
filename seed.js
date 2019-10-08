@@ -10,7 +10,7 @@ Match.collection.drop();
 const matches = [
   {
     title: "Partida do Felipe",
-    owner: "5d9c99d2a559473d476a416e",
+    owner: "5d9b7b07759902356b4a3110",
     description: "Diversao Garantida!!",
     totalPlayers: 25,
     // participants: [{type: [Schema.Types.ObjectId] }],
@@ -22,7 +22,7 @@ const matches = [
   },
   {
     title: "Partida do Felipe 2",
-    owner: "5d9c99d2a559473d476a416e",
+    owner: "5d9b7b07759902356b4a3110",
     description: "Diversao Garantida!!",
     totalPlayers: 25,
     // participants: [{type: [Schema.Types.ObjectId] }],
@@ -33,7 +33,7 @@ const matches = [
     }
   }, {
     title: "Partida do Felipe 3",
-    owner: "5d9c99d2a559473d476a416e",
+    owner: "5d9b7b07759902356b4a3110",
     description: "Diversao Garantida!!",
     totalPlayers: 25,
     // participants: [{type: [Schema.Types.ObjectId] }],
@@ -49,7 +49,7 @@ mongoose
   .connect('mongodb://localhost/footbook', {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
-    User.findByIdAndUpdate("5d9c99d2a559473d476a416e", { matchesOwner: []})
+    User.findByIdAndUpdate("5d9b7b07759902356b4a3110", { matchesOwner: []})
     .then(() => console.log("Atualizado com sucesso"))
     let idArrays = [];
     let createMatches = matches.map( match => {
@@ -63,7 +63,7 @@ mongoose
     Promise.all(createMatches)
       .then(match => {
           idArrays.forEach( id => {
-            User.findByIdAndUpdate("5d9c99d2a559473d476a416e", { $push: { matchesOwner: id}})
+            User.findByIdAndUpdate("5d9b7b07759902356b4a3110", { $push: { matchesOwner: id}})
               .then(() => console.log("Atualizado com sucesso"))
           })
       })

@@ -1,6 +1,6 @@
 <div class="container-fluid mt-5 pt-5">
   <div class="row d-flex justify-content-center">
-      <div class="col-10 col-md-8 title-page mb-4 ">
+      <div class="col-10 col-md-8 title-page mb-3 d-block d-sm-block d-md-none">
         <div class="row">
           <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start align-items-center">
             <h2>Find your match!</h2>
@@ -11,8 +11,11 @@
         </div>
       </div>
     </div>
-    <div class="col-10">
+    <div class="col-10 pb-5">
       <div class="row d-flex justify-content-around">
+        {{#each matches}}
+          {{> matchCard this}} 
+        {{/each}}
         {{#each matches}}
           {{> matchCard this}} 
         {{/each}}

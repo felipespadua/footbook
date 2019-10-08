@@ -382,7 +382,11 @@ html{
 }
 
 .title-page {
-  height: 40px;
+  height: 120px;
+}
+
+.btns-matchs {
+	height: 35px;
 }
 
 .content-card {
@@ -462,4 +466,24 @@ html{
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.329) !important;
   background-color: rgba(255, 255, 255, 0.575);
   height: 320px;
+}
+
+// PAGE ADD NEW MATCH
+
+.container-add {
+  background-color: rgba(255, 255, 255, 0.699);
+	border-radius: 0.5em;
+	box-shadow: 0 0 1em 0 rgba(51,51,51,0.25);
+	display: block;
+	max-width: 480px;
+	overflow: hidden;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	padding: 2em;
+	position: absolute;
+	top: 67%;
+	left: 50%;
+	z-index: 10;
+  width: 90%;
 }

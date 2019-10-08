@@ -348,7 +348,10 @@ html {
   font-size: .85rem; }
 
 .title-page {
-  height: 40px; }
+  height: 120px; }
+
+.btns-matchs {
+  height: 35px; }
 
 .content-card {
   height: 100%;

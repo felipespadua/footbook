@@ -1,0 +1,46 @@
+<div class="container-fluid bg-start match-add-page">
+    <div class="row d-flex align-items-center">
+      <div class="col-12 container-add mt-5">
+        <header>
+          <h1>
+            <img src="/images/logo-footbook2.png" alt="Logo">
+          </h1>
+        </header>
+        <div class="row d-flex justify-content-center">
+          <form class="col-10 registration-form" action="/login" method="POST">
+            <label>
+              <span class="label-text">Match name</span>
+              <input type="text" maxlength="11" required name="username">
+            </label>
+            <label class=" pt-3">
+              <span class="label-text">Date</span>
+              <input type="datetime-local" required name="password">
+            </label>
+            <label class="password pt-3">
+                <span class="label-text">Location</span>
+                <input type="password" required name="password">
+              </label>
+              <label class="password pt-3">
+                  <span class="label-text">Match Time</span>
+                  <input type="time" required name="password">
+                </label>
+            <label class="password pt-3">
+                <span class="label-text">Total Players</span>
+                <input type="number" required min="4" max="30" name="password">
+              </label>
+            <label class="password pt-3">
+                <span class="label-text">Description</span>
+                <input type="text" maxlength="20" name="password">
+              </label>
+              <label class="password pt-3">
+                  <span class="label-text">Field Img</span>
+                  <input type="file" name="password">
+                </label>
+            <div class="text-center pt-4">
+              <button name="register" class="submit btn btn-elegant">Create Match</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

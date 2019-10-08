@@ -73,28 +73,40 @@ router.get('/matches', ensureAuthenticated, (req, res, next) => {
   Match.find()
     .populate("owner")
     .then( matches => {
-        matches.map(match=> {
-          return match.numberOfParticipants = match.participants ? match.participants.length : 0;
-        })
-        console.log(matches)
         res.render('matches', { matches, user } )
     })
     .catch( err => {
       console.log("Ocorreu um erro ao encontrar as partidas: ", err)
     })
 });
-router.get('/match/:id', ensureAuthenticated, (req, res, next) => {
+router.get('/match/show/:id', ensureAuthenticated, (req, res, next) => {
   const { id } = req.params;
   const user = req.user;
   Match.findById(id)
+    .populate('owner')
+    .populate('participants')
+    .populate('field')
     .then( match => {
-        res.render('match', { match, user } )
+        let isOwner = match.owner.username === user.username ? true : false;
+        res.render('match', { match, user , isOwner} )
     })
     .catch( err => {
       console.log("Ocorreu um erro ao encontrar a partida: ", err)
     })
 });
-
+//incompleto, continuar
+router.get('/match/:id/add/player', ensureAuthenticated, (req, res, next) => {
+  const { id } = req.params;
+  const user = req.user;
+  Match.findById(id)
+    .populate('owner')
+    .then(match => {
+     
+        res.rende('match', { match, user})
+      
+    })
+  res.render('match-add', { user } )
+});
 
 router.get('/match/add', ensureAuthenticated, (req, res, next) => {
   const user = req.user;

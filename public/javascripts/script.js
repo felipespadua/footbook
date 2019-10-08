@@ -3,57 +3,67 @@ document.addEventListener('DOMContentLoaded', () => {
 }, false);
 const signUpPage = () => {
   let baseurl = window.location.origin;
-  window.location.href = baseurl + "/signup"
+  window.location.href = baseurl + '/signup';
 }
-
-function initAutocomplete() {
-  // Create the autocomplete object, restricting the search predictions to
-  // geographical location types.
-  autocomplete = new google.maps.places.Autocomplete(
-      document.getElementById('autocomplete'));
-
-  // Avoid paying for data that you don't need by restricting the set of
-  // place fields that are returned to just the address components.
-  autocomplete.setFields(['address_component']);
-
-  // When the user selects an address from the drop-down, populate the
-  // address fields in the form.
-  autocomplete.addListener('place_changed', fillInAddress);
+const viewMatch = (id) => {
+  console.log(id)
+  let baseurl = window.location.origin;
+  window.location.href = baseurl + '/match/show/' + id;
 }
-
-function fillInAddress() {
-  // Get the place details from the autocomplete object.
-  var place = autocomplete.getPlace();
-  console.log(place)
-  for (var component in componentForm) {
-    document.getElementById(component).value = '';
-    document.getElementById(component).disabled = false;
-  }
-
-  // Get each component of the address from the place details,
-  // and then fill-in the corresponding field on the form.
-  for (var i = 0; i < place.address_components.length; i++) {
-    var addressType = place.address_components[i].types[0];
-    if (componentForm[addressType]) {
-      var val = place.address_components[i][componentForm[addressType]];
-      document.getElementById(addressType).value = val;
-    }
-  }
+const addPlayerToMatch = (id) => {
+  let baseurl = window.location.origin;
+  window.location.href = baseurl + `/match/${id}/add/player` ;
 }
+const createNewMatch = () => {
+  let baseurl = window.location.origin;
+  window.location.href = baseurl + '/match/add';
+}
+// function initialize() {
+//   var input = document.getElementById('autocomplete');
+//   new google.maps.places.Autocomplete(input);
+// }
 
-function geolocate() {
-  if (navigator.geolocation) {
-  
-    navigator.geolocation.getCurrentPosition(function(position) {
-      console.log(position)
-      var geolocation = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      var circle = new google.maps.Circle(
-          {center: geolocation, radius: position.coords.accuracy});
-      
-      autocomplete.setBounds(circle.getBounds());
+// google.maps.event.addDomListener(window, 'load', initialize);
+
+function initialize() {
+  var inputSearch = document.getElementById('autocompleteSearch');
+  var autocompleteSearch = new google.maps.places.Autocomplete(inputSearch);
+    google.maps.event.addListener(autocompleteSearch, 'place_changed', function () {
+        var place = autocompleteSearch.getPlace();
+        document.getElementById('location').value = place.name;
+        document.getElementById('locationLat').value = place.geometry.location.lat();
+        document.getElementById('locationLng').value = place.geometry.location.lng();
     });
-  }
+    var newMatch = document.getElementById('autocompleteNewMatch');
+    var autocompleteNewMatch = new google.maps.places.Autocomplete(newMatch);
+      google.maps.event.addListener(autocompleteNewMatch, 'place_changed', function () {
+          var place = autocompleteNewMatch.getPlace();
+          document.getElementById('location').value = place.name;
+          document.getElementById('locationLat').value = place.geometry.location.lat();
+          document.getElementById('locationLng').value = place.geometry.location.lng();
+      });
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+
+
+function distance(lat1, lon1, lat2, lon2, unit) {
+	if ((lat1 == lat2) && (lon1 == lon2)) {
+		return 0;
+	}
+	else {
+		var radlat1 = Math.PI * lat1/180;
+		var radlat2 = Math.PI * lat2/180;
+		var theta = lon1-lon2;
+		var radtheta = Math.PI * theta/180;
+		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		if (dist > 1) {
+			dist = 1;
+		}
+		dist = Math.acos(dist);
+		dist = dist * 180/Math.PI;
+		dist = dist * 60 * 1.1515;
+		if (unit=="K") { dist = dist * 1.609344 }
+		if (unit=="N") { dist = dist * 0.8684 }
+		return dist;
+	}
 }

@@ -1,4 +1,4 @@
-<div class="col-12 col-md-5 text-center field-card px-0 mt-2 mb-4">
+<div onclick='viewMatch("{{this.id}}")' class="col-12 col-md-5 text-center field-card px-0 mt-2 mb-4">
   <div class="view overlay zoom content-card">
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQtz1UsljuzVpF9sGiB5uU5mKVFDucOlxRl3Ro00hbX_Uq8m36W" class="img-fluid "
       alt="zoom">
@@ -11,7 +11,7 @@
           <p class="black-text">Owner: {{owner.username}}</p> <br>
         </div>
         <div class="col-12">
-          <p class="black-text">Players: 8/12</p>
+          <p class="black-text">Players: {{this.numberOfParticipants}}/{{this.totalPlayers}}</p>
         </div>
       </div>
     </div>

@@ -10,11 +10,11 @@ const matchSchema = new Schema({
   date: { type: Date, required: true },
   location: { type: { type: String }, coordinates: [Number]},
   field: { type: Schema.Types.ObjectId , ref: "Field"},
-  numberOfParticipants: Number
+  numberOfParticipants: { type: Number, default: 0 }
 }, {
   timestamps: true
 });
-
+ 
 matchSchema.index({ location: '2dsphere' });
 matchSchema.pre("save", function(next) {
   this.numberOfParticipants = this.participants ? this.participants.length : 0;

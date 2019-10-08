@@ -1,41 +1,44 @@
-<div class="container-fluid bg-start match-add-page">
+<div class="container-fluid match-add-page">
     <div class="row d-flex align-items-center">
       <div class="col-12 container-add mt-5">
         <header>
           <h1>
-            <img src="/images/logo-footbook2.png" alt="Logo">
+            New Match
           </h1>
         </header>
         <div class="row d-flex justify-content-center">
-          <form class="col-10 registration-form" action="/login" method="POST">
+          <form class="col-12 registration-form" action="/match/add" method="POST">
             <label>
               <span class="label-text">Match name</span>
-              <input type="text" maxlength="11" required name="username">
+              <input type="text" maxlength="11" required name="title">
             </label>
             <label class=" pt-3">
               <span class="label-text">Date</span>
-              <input type="datetime-local" required name="password">
+              <input type="datetime-local" required name="date">
             </label>
             <label class="password pt-3">
                 <span class="label-text">Location</span>
-                <input type="password" required name="password">
+                <input id="autocompleteNewMatch"  required name="location">
+                <input type="hidden" id="location" name="location2" />
+                <input type="hidden" id="locationLat" name="locationLat" />
+                <input type="hidden" id="locationLng" name="locationLng" />
               </label>
               <label class="password pt-3">
                   <span class="label-text">Match Time</span>
-                  <input type="time" required name="password">
+                  <input type="time" required name="matchTime">
                 </label>
             <label class="password pt-3">
                 <span class="label-text">Total Players</span>
-                <input type="number" required min="4" max="30" name="password">
+                <input type="number" required min="4" max="30" name="totalPlayers">
               </label>
             <label class="password pt-3">
                 <span class="label-text">Description</span>
-                <input type="text" maxlength="20" name="password">
+                <input type="text" maxlength="20" name="description">
               </label>
               <label class="password pt-3">
                   <span class="label-text">Field Img</span>
-                  <input type="file" name="password">
-                </label>
+                  <input type="file" name="img">
+              </label>
             <div class="text-center pt-4">
               <button name="register" class="submit btn btn-elegant">Create Match</button>
             </div>

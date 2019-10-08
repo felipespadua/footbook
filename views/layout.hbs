@@ -30,7 +30,10 @@
             <i class="material-icons">search</i>
           </div>
           <div class="col-11 px-0">
-            <input id="autocomplete" onFocus="geolocate()"  class="search-bar controls" type="text">
+            <input id="autocompleteSearch" autocomplete="on" class="search-bar controls" type="text" name="location">
+            <input type="hidden" id="location" name="location2" />
+            <input type="hidden" id="locationLat" name="locationLat" />
+            <input type="hidden" id="locationLng" name="locationLng" />
           </div>
         </div>
       </div>
@@ -80,8 +83,7 @@
   </div>
   {{/if}}
 
-
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAM67FmXYTA2to7SnkdpMwTQJ399FXrgeo&libraries=places&callback=initAutocomplete"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAM67FmXYTA2to7SnkdpMwTQJ399FXrgeo&libraries=places">
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAM67FmXYTA2to7SnkdpMwTQJ399FXrgeo"></script>
 
   <!-- JQuery -->

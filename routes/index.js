@@ -71,7 +71,12 @@ router.post("/login", passport.authenticate("local", {
 router.get('/matches', ensureAuthenticated, (req, res, next) => {
   const user = req.user;
   Match.find()
+    .populate("owner")
     .then( matches => {
+        matches.map(match=> {
+          return match.numberOfParticipants = match.participants ? match.participants.length : 0;
+        })
+        console.log(matches)
         res.render('matches', { matches, user } )
     })
     .catch( err => {

@@ -16,7 +16,6 @@ const LocalStrategy = require("passport-local").Strategy;
 const flash = require("connect-flash");
 
 
-
 mongoose
   .connect('mongodb://localhost/footbook', {useNewUrlParser: true})
   .then(x => {
@@ -94,6 +93,8 @@ passport.use(new LocalStrategy({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+hbs.registerPartials(__dirname + '/views/partials');
 
 const index = require('./routes/index');
 app.use('/', index);

@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
   function startMap() {
-    const input = document.getElementById('location')
-    console.log(input.value);
+    const inputLat = document.getElementById('latitude')
+    const inputLng = document.getElementById('longitude')
+   
     const field = {
-      lat: -23.5626946,
-      lng: -46.6550198};
+      lat: Number(inputLat.value),
+      lng: Number(inputLng.value)};
     const map = new google.maps.Map(
       document.getElementById('map'),
       {
@@ -14,8 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
     );
     const myMarker = new google.maps.Marker({
       position: {
-        lat: -23.5626946,
-        lng: -46.6550198
+        lat: Number(inputLat.value),
+        lng: Number(inputLng.value)
       },
       map: map,
       title: "Field"

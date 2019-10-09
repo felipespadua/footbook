@@ -7,11 +7,11 @@
           </div>
           <div class="col-12 col-md-6 d-flex justify-content-around align-items-center">
             <button type="button" class="btns-matchs btn btn-outline-success waves-effect btn-sm" onclick="createNewMatch()">Create Match</button>
-            <button type="button" class="btns-matchs btn btn-light-green btn-sm" onclick="showMyMatches()">My Matches</button>
+            <button type="button" class="btns-matchs btn btn-outline-light btn-sm" onclick="showMyMatches()">My Matches</button>
         </div>
       </div>
     </div>
-    <div class="col-10 pb-5">
+    <div class="col-10 pb-5 mt-3">
       <div class="row d-flex justify-content-around">
         {{#each orderedMatches}}
           {{> matchCard this}} 

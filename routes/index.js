@@ -11,7 +11,7 @@ const Field = require("../models/Field")
 
 /* GET home page */
 router.get('/', (req, res, next) => {
-  res.render('login');
+  res.render('home');
 });
 
 router.get('/login', (req, res, next) => {

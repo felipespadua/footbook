@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,6 +18,7 @@
   <a href="https://icons8.com/icon/49067/soccer-ball"></a>
   <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
+
 <body>
   {{#if user}}
   <div class="container-fluid fixed-top nav-bar mx-0 px-0 d-flex justify-content-center">
@@ -43,13 +45,13 @@
             <p class="mb-0 "><a href="#" class="text-success2" onclick="createNewMatch()">Create Match</a></p>
           </div>
           <div class="col-3 pt-2 d-flex align-items-center justify-content-center">
-            <p class="mb-0 "><a href="#" class="text-success2">Matches</a></p>
+            <p class="mb-0 "><a href="/matches" class="text-success2">Matches</a></p>
           </div>
           <div class="col-3 pt-2 d-flex align-items-center justify-content-center">
             <p class="mb-0 "><a href="#" class=" text-success2">My Matches</a></p>
           </div>
           <div class="col-3 pt-2 d-flex align-items-center justify-content-center">
-            <i class="material-icons text-success" style="font-size: 35px">person_outline</i>
+            <a href="/profile"><i class="material-icons text-success" style="font-size: 35px">person_outline</i></a>
           </div>
           {{!-- <div class="col-2 pt-2 d-flex align-items-center justify-content-center">
             <p class="mb-0 "><a href="#" class=" text-danger">Logout</a></p>
@@ -65,25 +67,53 @@
   <div class="container-fluid fixed-bottom footer-page d-block d-sm-block d-md-none">
     <div class="row d-flex justify-content-between align-items-center">
       <div class="col-3 d-flex justify-content-center align-items-center">
-          <i class="material-icons text-success2">search</i>
+        <div class="row pb-2">
+          <div class="col-12 d-flex justify-content-center align-items-center pt-1">
+            <a href="/matches"><i class="material-icons text-success2">search</i></a>
+          </div>
+          <div class="col-12 pb-4">
+            <p class="footer-text text-center">explore</p>
+          </div>
+        </div>
       </div>
       <div class="col-3 d-flex justify-content-center">
-          <i class="material-icons text-success2">group</i>
+        <div class="row pb-2">
+          <div class="col-12 d-flex justify-content-center align-items-center pt-1">
+            <a href="#"><i class="material-icons text-success2">group</i></a>
+          </div>
+          <div class="col-12 pb-4">
+            <p class="footer-text text-center">matches</p>
+          </div>
+        </div>
       </div>
       <div class="col-3 d-flex justify-content-center">
-          <i class="material-icons text-success2">chat_bubble_outline</i>
+        <div class="row pb-2">
+          <div class="col-12 d-flex justify-content-center align-items-center pt-1">
+            <a href="/match/add"><i class="material-icons text-success2">add_circle_outline</i></a>
+          </div>
+          <div class="col-12 pb-4">
+            <p class="footer-text text-center">create match</p>
+          </div>
+        </div>
       </div>
       <div class="col-3 d-flex justify-content-center">
-          <i class="material-icons text-success2">person_pin</i>
+        <div class="row pb-2">
+          <div class="col-12 d-flex justify-content-center align-items-center pt-1">
+            <a href="/profile"><i class="material-icons text-success2">person_pin</i></a>
+          </div>
+          <div class="col-12 pb-4">
+            <p class="footer-text text-center">profile</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   {{/if}}
 
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAM67FmXYTA2to7SnkdpMwTQJ399FXrgeo&libraries=places">
-  
-
-  <!-- JQuery -->
+  <script type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAM67FmXYTA2to7SnkdpMwTQJ399FXrgeo&libraries=places">
+    <!-- JQuery 
+    -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAM67FmXYTA2to7SnkdpMwTQJ399FXrgeo"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -94,7 +124,8 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
   <script src="/javascripts/script.js"></script>
   <script>
-  AOS.init();
-</script>
+    AOS.init();
+  </script>
 </body>
+
 </html>

@@ -1,49 +1,56 @@
 <div class="container-fluid match-add-page">
-    <div class="row d-flex align-items-center">
-      <div class="col-12 container-add mt-5 mb-5">
-        <header class="d-flex justify-content-center pb-3">
-          <h2>
-            New Match
-          </h2>
-        </header>
-        <div class="row d-flex justify-content-center">
-          <form class="col-12 registration-form" action="/match/add" method="POST">
-            <label>
-              <span class="label-text">Match name</span>
-              <input type="text" maxlength="11" class="text-white" required name="title">
-            </label>
-            <label class=" pt-3">
-              <span class="label-text">Date</span>
-              <input type="date" class="text-white" required name="date">
-            </label>
-            <label class="password pt-3">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col-md-6 col-11 container-add pb-5" data-aos="fade-up">
+      <div class="row d-flex justify-content-center mt-5 pt-3 pb-4">
+        <form class="col-12 registration-form" action="/match/add" method="POST">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <label class="pt-3">
+                <span class="label-text">Match name</span>
+                <input type="text" maxlength="11" class="text-white" required name="title">
+              </label>
+              <label class="pt-3">
+                <span class="label-text">Date</span>
+                <input type="date" class="text-white" required name="date">
+              </label>
+              <label class="pt-3">
+                <span class="label-text">Match Time</span>
+                <input type="time" class="text-white" required name="matchTime">
+              </label>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="pt-3">
+                <span class="label-text">Total Players</span>
+                <input type="number" class="text-white" required min="4" max="30" name="totalPlayers">
+              </label>
+              <label class="pt-3">
+                <span class="label-text">Description</span>
+                <input type="text" class="text-white" maxlength="20" name="description">
+              </label>
+              <label class="pt-3">
+                <span class="label-text">Stadium</span>
+                <select id="stadium" class="browser-default custom-select">
+                  <option selected value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Ironhack</option>
+                  <option id="other" value="4">Other</option>
+                </select>
+              </label>
+              <label id="location" class="pt-3" style="visibility: hidden">
                 <span class="label-text">Location</span>
                 <input id="autocompleteNewMatch" class="text-white" required name="location">
                 <input type="hidden" id="location" name="location2" />
                 <input type="hidden" id="locationLat" name="locationLat" />
                 <input type="hidden" id="locationLng" name="locationLng" />
               </label>
-              <label class="password pt-3">
-                  <span class="label-text">Match Time</span>
-                  <input type="time" class="text-white" required name="matchTime">
-                </label>
-            <label class="password pt-3">
-                <span class="label-text">Total Players</span>
-                <input type="number" class="text-white" required min="4" max="30" name="totalPlayers">
-              </label>
-            <label class="password pt-3">
-                <span class="label-text">Description</span>
-                <input type="text" class="text-white" maxlength="20" name="description">
-              </label>
-              <label class="password pt-3">
-                  <span class="label-text">Field Img</span>
-                  <input type="file" name="img">
-              </label>
-            <div class="text-center pt-4">
-              <button name="register" class="submit btn btn-elegant">Create Match</button>
             </div>
-          </form>
-        </div>
+            <div class="col-12 text-center pt-4 d-flex justify-content-center">
+                <button name="register" class="submit btn btn-elegant">Create Match</button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
+</div>
+<script src="/javascripts/match-add.js"></script>

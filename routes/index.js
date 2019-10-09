@@ -18,6 +18,10 @@ router.get('/login', (req, res, next) => {
   res.render('login');
 });
 
+router.get("/logout", (req, res) => {
+  req.logout();
+  res.redirect("/login");
+});
 
 router.get('/signup', (req, res, next) => {
   res.render('signup');
@@ -115,6 +119,11 @@ router.get('/match/:id/add/player', ensureAuthenticated, (req, res, next) => {
 router.get('/match/add', ensureAuthenticated, (req, res, next) => {
   const user = req.user;
   res.render('match-add', { user } )
+});
+
+router.get('/profile', ensureAuthenticated, (req, res, next) => {
+  const user = req.user;
+  res.render('profile', { user } )
 });
 
 router.post('/match/add', ensureAuthenticated, (req, res, next) => {

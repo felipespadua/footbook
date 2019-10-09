@@ -9,7 +9,9 @@
                 class="img-fluid rounded-circle hoverable" alt="hoverable">
             </div>
             <div class="col-12 pt-3">
-              <h1>Ronaldinho Gaucho</h1>
+              <h2>
+              {{user.username}}
+              </h2>
             </div>
             <div class="col-12">
               
@@ -21,17 +23,21 @@
           <form action="/" class="col-10 registration-form" method="POST">
           <label>
             <span class="label-text">Username</span>
-            <input type="text" class="white-text" name="username">
+            <input type="text" class="white-text text-center" name="username" placeholder=" {{user.username}}">
           </label>
           <label>
             <span class="label-text">Email</span>
-            <input type="email" class="white-text" name="email">
+            <input type="email" class="white-tex text-center" name="email" placeholder="{{user.email}}">
           </label>
           <label class="password">
-            <span class="label-text">Password</span>
+            <span class="label-text">Old Password</span>
             <input type="password" class="white-text" name="password">
           </label>
-          <div class="text-center pt-5 pb-5 mt-md-5">
+          <label class="password">
+            <span class="label-text">New Password</span>
+            <input type="password" class="white-text" name="password">
+          </label>
+          <div class="text-center pt-5 pb-5">
             <button type="submit" name="register" class="submit btn btn-elegant">Update Profile</button>
             <a href="/logout"><button type="button" class="btn btn-danger px-3 btn-sm"><i class="fas fa-power-off" aria-hidden="true"></i></button></a>
           </div>

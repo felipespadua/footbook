@@ -9,6 +9,9 @@ const User = require("../models/User");
 const Match = require("../models/Match")
 const Field = require("../models/Field")
 
+
+const googleApiKey = process.env.GOOGLE_API_KEY;
+
 /* GET home page */
 router.get('/', (req, res, next) => {
   res.render('home');
@@ -69,20 +72,49 @@ router.post("/login", passport.authenticate("local", {
 }));
 
 router.get('/matches', ensureAuthenticated, (req, res, next) => {
-  const { locationLat, locationLng } = req.body;
-  console.log(req.body)
   const user = req.user;
   Match.find()
     .populate("owner")
-    .then( matches => {
-        let orderedMatches = orderByDistance(matches, locationLat, locationLng)
-        console.log(orderedMatches)
-        res.render('matches', { orderedMatches , user } )
+    .then( matches => { 
+      matches = orderByDistance(matches)
+      console.log(matches)
+      res.render('matches', { matches , user , googleApiKey} )
     })
     .catch( err => {
       console.log("Ocorreu um erro ao encontrar as partidas: ", err)
     })
 });
+
+
+router.post('/matches', ensureAuthenticated, (req, res, next) => {
+  let {lat, lng } = req.body;
+  const user = req.user;
+  Match.find()
+    .then( matches => { 
+      let updateMatches = matches.map((match) => {
+        match = setDistance(match, lat, lng)
+        let newMatch = new Match(match)
+        return newMatch.save()
+          .then((result)=> console.log("Match atualiada", result))
+          .catch((err) => console.log(err))
+      })
+      Promise.all(updateMatches)
+        .then(() => {
+          res.render('matches', { matches , user , googleApiKey} )
+        })
+        .catch((err) => console.log(err))
+      
+    })
+    .catch( err => {
+      console.log("Ocorreu um erro ao encontrar as partidas: ", err)
+    })
+});
+// router.post('/matches', ensureAuthenticated, (req, res, next) => {
+//   lat = req.body.lat;
+//   lng = req.body.lng;
+//   res.re('/matches')
+ 
+// });
 router.get('/match/show/:id', ensureAuthenticated, (req, res, next) => {
   const { id } = req.params;
   const user = req.user;
@@ -92,7 +124,9 @@ router.get('/match/show/:id', ensureAuthenticated, (req, res, next) => {
     .populate('field')
     .then( match => {
         let isOwner = match.owner.username === user.username ? true : false;
-        res.render('match', { match, user , isOwner} )
+        let lat = match.location.coordinates[1];
+        let lng = match.location.coordinates[0];
+        res.render('match', { match, user , isOwner , lat, lng , googleApiKey} )
     })
     .catch( err => {
       console.log("Ocorreu um erro ao encontrar a partida: ", err)
@@ -114,7 +148,7 @@ router.get('/match/:id/add/player', ensureAuthenticated, (req, res, next) => {
 
 router.get('/match/add', ensureAuthenticated, (req, res, next) => {
   const user = req.user;
-  res.render('match-add', { user } )
+  res.render('match-add', { user, googleApiKey} )
 });
 
 router.post('/match/add', ensureAuthenticated, (req, res, next) => {
@@ -226,15 +260,13 @@ function distance(lat1, lon1, lat2, lon2) {
 		return  dist * 1.609344;
 	}
 }
-function orderByDistance(matches, latitude, longitude){
-  matches.forEach(match => {
-    let matchLng = match.location.coordinates[0];
-    let matchLat = match.location.coordinates[1];
-    console.log(matchLng,matchLat);
-    console.log(latitude,longitude)
-    match.distance = distance(latitude,longitude,matchLat,matchLng);
-  })
-  return matches.sort((a,b) => { return a.distance - b.distance })
-   
+function orderByDistance(matches){
+  return matches.sort((a,b) => { return Number(a.distance) - Number(b.distance) })
+}
+function setDistance(match, latitude, longitude){
+  let matchLng = match.location.coordinates[0];
+  let matchLat = match.location.coordinates[1];
+  match.distance = Number(distance(latitude,longitude,matchLat,matchLng)).toFixed(2).toString();
+  return match
 }
 module.exports = router;

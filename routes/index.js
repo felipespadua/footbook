@@ -70,12 +70,14 @@ router.post("/login", passport.authenticate("local", {
 
 router.get('/matches', ensureAuthenticated, (req, res, next) => {
   const { locationLat, locationLng } = req.body;
+  console.log(req.body)
   const user = req.user;
   Match.find()
     .populate("owner")
     .then( matches => {
-        
-        res.render('matches', { matches, user } )
+        let orderedMatches = orderByDistance(matches, locationLat, locationLng)
+        console.log(orderedMatches)
+        res.render('matches', { orderedMatches , user } )
     })
     .catch( err => {
       console.log("Ocorreu um erro ao encontrar as partidas: ", err)
@@ -205,7 +207,7 @@ function ensureAuthenticated(req, res, next) {
     res.redirect('/login')
   }
 }
-function distance(lat1, lon1, lat2, lon2, unit) {
+function distance(lat1, lon1, lat2, lon2) {
 	if ((lat1 == lat2) && (lon1 == lon2)) {
 		return 0;
 	}
@@ -221,9 +223,18 @@ function distance(lat1, lon1, lat2, lon2, unit) {
 		dist = Math.acos(dist);
 		dist = dist * 180/Math.PI;
 		dist = dist * 60 * 1.1515;
-		if (unit=="K") { dist = dist * 1.609344 }
-		if (unit=="N") { dist = dist * 0.8684 }
-		return dist;
+		return  dist * 1.609344;
 	}
+}
+function orderByDistance(matches, latitude, longitude){
+  matches.forEach(match => {
+    let matchLng = match.location.coordinates[0];
+    let matchLat = match.location.coordinates[1];
+    console.log(matchLng,matchLat);
+    console.log(latitude,longitude)
+    match.distance = distance(latitude,longitude,matchLat,matchLng);
+  })
+  return matches.sort((a,b) => { return a.distance - b.distance })
+   
 }
 module.exports = router;

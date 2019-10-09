@@ -16,11 +16,11 @@
               <div class="mask waves-effect waves-light rgba-white-slight"></div>
             </a>
           </div>
-          <div class="col-md-6 view overlay field-img px-1 py-2 d-none d-sm-block order-2">
+          <div id="map" class="col-md-6 d-none d-sm-block order-2">
             {{!-- MAP IMAGE --}}
-            <img
+            {{!-- <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSkYFuf99VqE0xRDN1ncPJ1Asx9Tsd1owxkcASKHE1d9fVoba2a"
-              class="img-fluid" alt="Sample image with waves effect.">
+              class="img-fluid" alt="Sample image with waves effect."> --}}
             <a>
               <div class="mask waves-effect waves-light rgba-white-slight"></div>
             </a>
@@ -59,8 +59,12 @@
             {{/if}}
             <p class="pt-2">{{match.description}}</p>
           </div>
-
+          
         </div>
       </div>
     </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAM67FmXYTA2to7SnkdpMwTQJ399FXrgeo"></script>
+    <script src="/javascripts/match.js"></script>
   </div>
+  <input display="none" type="hidden" id="location">{{match.location}}</input>

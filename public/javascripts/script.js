@@ -47,6 +47,8 @@ function initialize() {
         document.getElementById('location').value = place.name;
         document.getElementById('locationLat').value = place.geometry.location.lat();
         document.getElementById('locationLng').value = place.geometry.location.lng();
+        let baseurl = window.location.origin;
+        window.location.href = baseurl + '/matches';
     });
     var newMatch = document.getElementById('autocompleteNewMatch');
     var autocompleteNewMatch = new google.maps.places.Autocomplete(newMatch);
@@ -55,6 +57,8 @@ function initialize() {
           document.getElementById('location').value = place.name;
           document.getElementById('locationLat').value = place.geometry.location.lat();
           document.getElementById('locationLng').value = place.geometry.location.lng();
+          let baseurl = window.location.origin;
+          window.location.href = baseurl + '/matches';
       });
 }
 google.maps.event.addDomListener(window, 'load', initialize);

@@ -1,4 +1,4 @@
-<div class="card card-cascade col-12 col-md-5 mb-4 mt-2 px-0">
+<div class="card card-cascade col-12 col-md-5 mb-4 mt-2 px-0" data-aos="fade-up" data-aos-delay="300" data-aos-duration="6000" onclick='viewMatch("{{this.id}}")'>
 
   <!-- Card image -->
   <div class="view view-cascade overlay">
@@ -13,14 +13,14 @@
   <!-- Card content -->
   <div class="card-body card-body-cascade text-center pb-0">
     <div class="row">
-      <div class="col-6">
+      <div class="col-6 text-start">
         <h6 class="card-title"><strong>{{this.title}}</strong></h6>
         <!-- Subtitle -->
-        <p class="blue-text pb-2"><strong>Owner: {{owner.username}}</strong></p>
+        <p class="font-green pb-2"><strong>Owner: {{owner.username}}</strong></p>
 
       </div>
       <div class="col-6">
-        <p class="card-text">Players: 8/12 </p>
+        <p class="card-text">Players: {{this.numberOfParticipants}}/{{this.totalPlayers}} </p>
 
       </div>
     </div>

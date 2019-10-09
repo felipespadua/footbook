@@ -430,7 +430,7 @@ html {
   background-color: rgba(255, 255, 255, 0); }
 
 .img-background {
-  background-image: url("https://pixabay.com/get/54e6d5434d51ae14f6d1867dda6d49214b6ac3e45656714c7d2b7cd292/football-2600732_1920.jpg");
+  background-image: url("/images/homebg.jpg");
   background-size: cover;
   height: 100vh; }
 

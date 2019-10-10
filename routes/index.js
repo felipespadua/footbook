@@ -211,7 +211,7 @@ router.post('/match/add', ensureAuthenticated, (req, res, next) => {
       participants,
       date,
       location,
-      field,
+      field : field != "Other" ? field : undefined
     });
     // if(field)
     // Field.find(field)

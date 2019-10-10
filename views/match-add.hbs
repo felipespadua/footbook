@@ -29,8 +29,8 @@
               </label>
               <label class="pt-3">
                 <span class="label-text">Stadium</span>
-                <select name="field" id="stadium" class="browser-default custom-select">
-                  <option selected=true value="select">Select a field</option>
+                <select onchange="setFieldAddress()" name="field" id="field" class="browser-default custom-select">
+                  <option value="select">Select a field</option>
                   {{#each fields}}
                      <option value="{{this.id}}">{{this.name}}</option>
                   {{/each}}
@@ -40,7 +40,7 @@
               <label id="locationlabel" class="pt-3">
                 <span class="label-text">Location</span>
                 <input id="autocompleteNewMatch" class="text-white" required name="location">
-                <input type="hidden" id="locationNewMatch" name="street" />
+                <input type="hidden" id="locationNewMatch" name="place" />
                 <input type="hidden" id="newMatchLat" name="latitude" />
                 <input type="hidden" id="newMatchLng" name="longitude" />
               </label>
@@ -48,12 +48,14 @@
             <div class="col-12 text-center pt-4 d-flex justify-content-center">
                 <button name="register" class="submit btn btn-elegant">Create Match</button>
             </div>
+            <div id="googleApiKey" type="hidden" value="{{googleApiKey}}"></div>
           </div>
         </form>
       </div>
     </div>
   </div>
 </div>
+<script src="/javascripts/apiHelper.js"></script>
 <script src="/javascripts/match-add.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key={{googleApiKey}}"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{googleApiKey}}&libraries=places"></script>

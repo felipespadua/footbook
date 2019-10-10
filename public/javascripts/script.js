@@ -29,8 +29,9 @@ const createNewMatch = () => {
 
 
 function initialize() {
-  const apiHandler = new ApiHandler(window.location.href);     
+  const apiHandler = new ApiHandler();     
   var inputSearch = document.getElementById('autocompleteSearch');
+  inputSearch.placeholder = "Search"
   var autocompleteSearch = new google.maps.places.Autocomplete(inputSearch);
     google.maps.event.addListener(autocompleteSearch, 'place_changed', function () {
         var place = autocompleteSearch.getPlace();

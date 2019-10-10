@@ -75,23 +75,8 @@ router.post("/login", passport.authenticate("local", {
   passReqToCallback: true
 }));
 
-router.get('/matches', ensureAuthenticated, (req, res, next) => {
-  const user = req.user;
-  Match.find()
-    .populate("owner")
-    .then( matches => { 
-      matches = orderByDistance(matches)
-      console.log(matches)
-      res.render('matches', { matches , user , googleApiKey} )
-    })
-    .catch( err => {
-      console.log("Ocorreu um erro ao encontrar as partidas: ", err)
-    })
-});
-
-
-router.post('/matches', ensureAuthenticated, (req, res, next) => {
-  let {lat, lng } = req.body;
+router.get('/matches/:lat/:lng', ensureAuthenticated, (req, res, next) => {
+  let {lat, lng } = req.params;
   const user = req.user;
   Match.find()
     .then( matches => { 
@@ -104,6 +89,7 @@ router.post('/matches', ensureAuthenticated, (req, res, next) => {
       })
       Promise.all(updateMatches)
         .then(() => {
+          matches = orderByDistance(matches)
           res.render('matches', { matches , user , googleApiKey} )
         })
         .catch((err) => console.log(err))
@@ -113,12 +99,53 @@ router.post('/matches', ensureAuthenticated, (req, res, next) => {
       console.log("Ocorreu um erro ao encontrar as partidas: ", err)
     })
 });
+
+
+router.get('/matches', ensureAuthenticated, (req, res, next) => {
+  const user = req.user;
+  Match.find()
+    .populate("owner")
+    .populate("field")
+    .then( matches => { 
+      matches = orderByDistance(matches)
+      console.log(matches)
+      res.render('matches', { matches , user , googleApiKey} )
+    })
+    .catch( err => {
+      console.log("Ocorreu um erro ao encontrar as partidas: ", err)
+    })
+});
+
+
 // router.post('/matches', ensureAuthenticated, (req, res, next) => {
 //   lat = req.body.lat;
 //   lng = req.body.lng;
 //   res.re('/matches')
  
 // });
+router.get('/match/delete/:id', ensureAuthenticated, (req, res, next) => {
+  let { id } = req.params;
+  let { username } = req.user;
+  Match.findById(id)
+    .then( match => { 
+      User.findOne({username})
+        .then((user) =>{
+          if(match.owner == user.id){
+            Match.findByIdAndDelete(match.id)
+              .then((result) => {
+                console.log("Partida deletada com sucesso")
+                res.redirect("/matches")
+              })
+              .catch((err) => console.log(err))
+          }else {
+            res.redirect("/matches")
+          }
+        })
+    })
+    .catch( err => {
+      console.log("Ocorreu um erro ao encontrar as partidas: ", err)
+    })
+});
 router.get('/match/show/:id', ensureAuthenticated, (req, res, next) => {
   const { id } = req.params;
   const user = req.user;
@@ -130,6 +157,7 @@ router.get('/match/show/:id', ensureAuthenticated, (req, res, next) => {
         let isOwner = match.owner.username === user.username ? true : false;
         let lat = match.location.coordinates[1];
         let lng = match.location.coordinates[0];
+        console.log(match)
         res.render('match', { match, user , isOwner , lat, lng , googleApiKey} )
     })
     .catch( err => {
@@ -144,7 +172,7 @@ router.get('/match/:id/add/player', ensureAuthenticated, (req, res, next) => {
     .populate('owner')
     .then(match => {
      
-        res.rende('match', { match, user})
+        res.render('match', { match, user})
       
     })
   res.render('match-add', { user } )
@@ -161,16 +189,17 @@ router.get('/match/add', ensureAuthenticated, (req, res, next) => {
 
 router.get('/profile', ensureAuthenticated, (req, res, next) => {
   const user = req.user;
-  res.render('profile', { user } )
+  res.render('profile', { user, googleApiKey } )
 });
 
 router.post('/match/add', ensureAuthenticated, (req, res, next) => {
   console.log(req.body)
   const {username}  = req.user;
-  const {title, totalPlayers, description, field, matchTime ,date, participants, longitude, latitude }  = req.body;
+  const {title, totalPlayers, description, field, matchTime ,date, place, participants, longitude, latitude }  = req.body;
   let location = {
     type: 'Point',
-	  coordinates: [longitude, latitude]
+    coordinates: [longitude, latitude],
+    place
   }
   User.findOne({username})
   .then(user => {
@@ -182,7 +211,7 @@ router.post('/match/add', ensureAuthenticated, (req, res, next) => {
       participants,
       date,
       location,
-      field
+      field,
     });
     // if(field)
     // Field.find(field)
@@ -244,17 +273,20 @@ router.post('/match/edit/:id', ensureAuthenticated, (req, res, next) => {
       res.render('match-edit', { message: "An error ocurred while updating match", user})
     })
 });
-// router.get('/events/search/', ensureAuthenticated, (req, res, next) => {
-//   const { query, typeQuery } = req.body;
-//   Event.find()
-//     .then(events => {
+/////////////////////API SECTION 
+router.get('/api/field/:id/location', ensureAuthenticated, (req, res, next) => {
+  Field.findById(req.params.id)
+    .then((field) => {
+      res.json(field.location)
+    })
+    .catch((err) => console.log(err))
+});
 
-//     })
-//     .catch(error => {
-//       next(error)
-//     })
-// });
 
+
+
+
+////////////////////MIDDLEWARE SECTION
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -262,6 +294,9 @@ function ensureAuthenticated(req, res, next) {
     res.redirect('/login')
   }
 }
+
+
+////////////////////HELPER FUNCTIONS SECTION
 function distance(lat1, lon1, lat2, lon2) {
 	if ((lat1 == lat2) && (lon1 == lon2)) {
 		return 0;

@@ -8,7 +8,7 @@ const matchSchema = new Schema({
   totalPlayers: { type: Number, required: true},
   participants:  [{ type: Schema.Types.ObjectId, ref: "User" }],
   date: { type: Date, required: true },
-  location: { type: { type: String }, coordinates: [Number]},
+  location: { type: { type: String }, coordinates: [Number], place: String},
   field: { type: Schema.Types.ObjectId , ref: "Field"},
   numberOfParticipants: { type: Number, default: 0 },
   distance: {type: String, default: undefined},

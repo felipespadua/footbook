@@ -25,6 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
   startMap();
 }, false);
 
+const deleteMatch = (id) => {
+  let baseurl = window.location.origin;
+  window.location.href = baseurl + '/match/delete/' + id;
+}
 
 
 

@@ -10,21 +10,21 @@ let fields = [
     name: "Campo da Alegria",
     location: {
       type: 'Point',
-      coordinates: [-26.5644216, -33.5334633]
+      coordinates: [-46.5799064, -23.5371129],
     },
     description: "Melhor campo!",
-    imgName: "campo1",
-    imgPath: `${__dirname}/public/images/fields`
+    imgName: "campo1.jpg",
+    imgPath: `/images/fields`
   },
   {
     name: "Campo da Tristeza",
     location: {
       type: 'Point',
-      coordinates: [-46.5644216, -23.5334633]
+      coordinates: [-46.5644216, -23.5334633],
     },
     description: "Segundo Melhor campo!",
-    imgName: "campo2",
-    imgPath: `${__dirname}/public/images/fields`
+    imgName: "campo2.jpg",
+    imgPath: `/images/fields`
   },
   {
     name: "Campo da Harmonia",
@@ -33,8 +33,8 @@ let fields = [
       coordinates: [-44.5644216, -23.5334633]
     },
     description: "Terceiro Melhor campo!",
-    imgName: "campo3",
-    imgPath: `${__dirname}/public/images/fields`
+    imgName: "campo3.jpg",
+    imgPath: `/images/fields`
   }
 ]
 
@@ -43,6 +43,7 @@ let fields = [
 mongoose
 .connect('mongodb://localhost/footbook', {useNewUrlParser: true})
 .then(x => {
+  Field.collection.drop();
   let createFields = fields.map( field => {
     const newField = new Field(field);
     console.log(`Campo ${field.name} criado com sucesso`)
@@ -52,7 +53,7 @@ mongoose
   .then(user => {
     let userId =user.id
     console.log(userId, "id")
-    Match.collection.drop();
+    // Match.collection.drop();
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
     User.findByIdAndUpdate(userId, { matchesOwner: []})
     .then(() => console.log("Atualizado com sucesso"))
@@ -106,65 +107,65 @@ let defMatches = (userId) => {
         coordinates: [-46.5644216, -23.5334633]
       }
     },
-    {
-      title: "Partida do Felipe 2",
-      owner: userId,
-      description: "Diversao Garantida!!",
-      totalPlayers: 25,
-      // participants: [{type: [Schema.Types.ObjectId] }],
-      date: new Date(2019,11,28),
-      location: {
-        type: 'Point',
-        coordinates: [-43.5644216, -20.5334633]
-      }
-    }, {
-      title: "Partida do Felipe 3",
-      owner: userId,
-      description: "Diversao Garantida!!",
-      totalPlayers: 25,
-      // participants: [{type: [Schema.Types.ObjectId] }],
-      date: new Date(2019,11,28),
-      location: {
-        type: 'Point',
-        coordinates: [-41.5644216, -20.5334633]
-      }
-    },
-    {
-      title: "Partida do Felipe 4",
-      owner: userId,
-      description: "Diversao Garantida!!",
-      totalPlayers: 25,
-      // participants: [{type: [Schema.Types.ObjectId] }],
-      date: new Date(2019,11,28),
-      location: {
-        type: 'Point',
-        coordinates: [-41.5644216, -21.5334633]
-      }
-    },
-    {
-      title: "Partida do Felipe 5",
-      owner: userId,
-      description: "Diversao Garantida!!",
-      totalPlayers: 25,
-      // participants: [{type: [Schema.Types.ObjectId] }],
-      date: new Date(2019,11,28),
-      location: {
-        type: 'Point',
-        coordinates: [-35.5644216, -20.5334633]
-      }
-    },
-    {
-      title: "Partida do Felipe 6",
-      owner: userId,
-      description: "Diversao Garantida!!",
-      totalPlayers: 25,
-      // participants: [{type: [Schema.Types.ObjectId] }],
-      date: new Date(2019,11,28),
-      location: {
-        type: 'Point',
-        coordinates: [-41.5644216, -19.5334633]
-      }
-    },
+    // {
+    //   title: "Partida do Felipe 2",
+    //   owner: userId,
+    //   description: "Diversao Garantida!!",
+    //   totalPlayers: 25,
+    //   // participants: [{type: [Schema.Types.ObjectId] }],
+    //   date: new Date(2019,11,28),
+    //   location: {
+    //     type: 'Point',
+    //     coordinates: [-43.5644216, -20.5334633]
+    //   }
+    // }, {
+    //   title: "Partida do Felipe 3",
+    //   owner: userId,
+    //   description: "Diversao Garantida!!",
+    //   totalPlayers: 25,
+    //   // participants: [{type: [Schema.Types.ObjectId] }],
+    //   date: new Date(2019,11,28),
+    //   location: {
+    //     type: 'Point',
+    //     coordinates: [-41.5644216, -20.5334633]
+    //   }
+    // },
+    // {
+    //   title: "Partida do Felipe 4",
+    //   owner: userId,
+    //   description: "Diversao Garantida!!",
+    //   totalPlayers: 25,
+    //   // participants: [{type: [Schema.Types.ObjectId] }],
+    //   date: new Date(2019,11,28),
+    //   location: {
+    //     type: 'Point',
+    //     coordinates: [-41.5644216, -21.5334633]
+    //   }
+    // },
+    // {
+    //   title: "Partida do Felipe 5",
+    //   owner: userId,
+    //   description: "Diversao Garantida!!",
+    //   totalPlayers: 25,
+    //   // participants: [{type: [Schema.Types.ObjectId] }],
+    //   date: new Date(2019,11,28),
+    //   location: {
+    //     type: 'Point',
+    //     coordinates: [-35.5644216, -20.5334633]
+    //   }
+    // },
+    // {
+    //   title: "Partida do Felipe 6",
+    //   owner: userId,
+    //   description: "Diversao Garantida!!",
+    //   totalPlayers: 25,
+    //   // participants: [{type: [Schema.Types.ObjectId] }],
+    //   date: new Date(2019,11,28),
+    //   location: {
+    //     type: 'Point',
+    //     coordinates: [-41.5644216, -19.5334633]
+    //   }
+    // },
     ]
   return matches
 }

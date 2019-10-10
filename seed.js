@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const mongoose = require('mongoose');
 const Field = require('./models/Field');
 const Match = require('./models/Match');
@@ -10,7 +12,8 @@ let fields = [
     name: "Campo da Alegria",
     location: {
       type: 'Point',
-      coordinates: [-46.5799064, -23.5371129],
+      coordinates: [-46.5534166, -23.5346071],
+      place: "Rua Anama, 35 - Guaiauna, São Paulo - SP"
     },
     description: "Melhor campo!",
     imgName: "campo1.jpg",
@@ -20,7 +23,8 @@ let fields = [
     name: "Campo da Tristeza",
     location: {
       type: 'Point',
-      coordinates: [-46.5644216, -23.5334633],
+      coordinates: [-46.5715969, -23.544657],
+      place: "Rua Serra de Botucatu, 30 - Chácara Califórnia, São Paulo - SP"
     },
     description: "Segundo Melhor campo!",
     imgName: "campo2.jpg",
@@ -30,7 +34,8 @@ let fields = [
     name: "Campo da Harmonia",
     location: {
       type: 'Point',
-      coordinates: [-44.5644216, -23.5334633]
+      coordinates: [-46.5451229, -23.5477971],
+      place: "Rua Rogerio Giorgi, 50 - Vila Carrao, São Paulo - SP"
     },
     description: "Terceiro Melhor campo!",
     imgName: "campo3.jpg",
@@ -41,7 +46,7 @@ let fields = [
 
 
 mongoose
-.connect('mongodb://localhost/footbook', {useNewUrlParser: true})
+.connect(process.env.MONGODB_URI, {useNewUrlParser: true})
 .then(x => {
   Field.collection.drop();
   let createFields = fields.map( field => {

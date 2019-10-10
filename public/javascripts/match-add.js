@@ -33,13 +33,16 @@ const setFieldAddress = () => {
         console.log("Endereco do campo:", result)
         let lat = result.data.coordinates[1];
         let lng = result.data.coordinates[0];
-        googleApiHandler.getAddressByLatLng(lat,lng)
-          .then((result) => {
-            console.log("Result google: ",result)
-            let place = result.data.results[0].formatted_address
-            document.getElementById('autocompleteNewMatch').value = place;
-          })
-          .catch((err) => console.log(err))
+        document.getElementById('newMatchLat').value = lat;
+        document.getElementById('newMatchLng').value = lng;
+        document.getElementById('autocompleteNewMatch').value = result.data.place;
+        // googleApiHandler.getAddressByLatLng(lat,lng)
+        //   .then((result) => {
+        //     console.log("Result google: ",result)
+        //     let place = result.data.results[0].formatted_address
+        //     document.getElementById('autocompleteNewMatch').value = place;
+        //   })
+        //   .catch((err) => console.log(err))
       })
   }else {
     enableAutocomplete()

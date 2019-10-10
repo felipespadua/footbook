@@ -78,31 +78,38 @@ router.post("/login", passport.authenticate("local", {
 
 router.get('/matches/:lat/:lng', ensureAuthenticated, (req, res, next) => {
   let {lat, lng } = req.params;
-  savedLat = lat;
-  savedLng = lng;
   const user = req.user;
-  Match.find()
-    .populate("owner")
-    .populate("field")
-    .then( matches => { 
-      let updateMatches = matches.map((match) => {
-        match = setDistance(match, lat, lng)
-        let newMatch = new Match(match)
-        return newMatch.save()
-          .then((result)=> console.log("Match atualizada", result))
-          .catch((err) => console.log(err))
-      })
-      Promise.all(updateMatches)
-        .then(() => {
-          matches = orderByDistance(matches)
-          res.render('matches', { matches , user , googleApiKey} )
+  const username = req.user.username;
+  let userSearchLocation = {
+    coordinates: [lng,lat]
+  }
+  User.findOneAndUpdate({username},{ location : userSearchLocation})
+    .then((result) => {
+      Match.find()
+        .populate("owner")
+        .populate("field")
+        .then( matches => { 
+          let updateMatches = matches.map((match) => {
+            match = setDistance(match, lat, lng)
+            let newMatch = new Match(match)
+            return newMatch.save()
+              .then((result)=> console.log("Match atualizada", result))
+              .catch((err) => console.log(err))
+          })
+          Promise.all(updateMatches)
+            .then(() => {
+              matches = orderByDistance(matches)
+              res.render('matches', { matches , user , googleApiKey} )
+              // res.redirect("/matches")
+            })
+            .catch((err) => console.log(err))
+          
         })
-        .catch((err) => console.log(err))
-      
+        .catch( err => {
+          console.log("Ocorreu um erro ao encontrar as partidas: ", err)
+        })
     })
-    .catch( err => {
-      console.log("Ocorreu um erro ao encontrar as partidas: ", err)
-    })
+    .catch((err) => console.log(err))
 });
 
 
@@ -136,12 +143,16 @@ router.get('/match/delete/:id', ensureAuthenticated, (req, res, next) => {
       User.findOne({username})
         .then((user) =>{
           if(match.owner == user.id){
-            Match.findByIdAndDelete(match.id)
-              .then((result) => {
-                console.log("Partida deletada com sucesso")
-                res.redirect("/matches")
-              })
-              .catch((err) => console.log(err))
+            User.findByIdAndUpdate(user.id,{ $pull: { matchesOwner: match.id}})
+              .then((result => {
+                Match.findByIdAndDelete(match.id)
+                .then((result) => {
+                  console.log("Partida deletada com sucesso")
+                  res.redirect("/matches")
+                })
+                .catch((err) => console.log(err))
+              }))
+             .catch(err => console.log(err))
           }else {
             res.redirect("/matches")
           }
@@ -162,25 +173,55 @@ router.get('/match/show/:id', ensureAuthenticated, (req, res, next) => {
         let isOwner = match.owner.username === user.username ? true : false;
         let lat = match.location.coordinates[1];
         let lng = match.location.coordinates[0];
-        console.log(match)
-        res.render('match', { match, user , isOwner , lat, lng , googleApiKey} )
+        let isParticipating = false
+        match.participants.forEach(participant => {
+            if(participant.username == user.username){
+              isParticipating = true
+            }
+        });
+        res.render('match', { match, user , isOwner, isParticipating , lat, lng , googleApiKey} )
     })
     .catch( err => {
       console.log("Ocorreu um erro ao encontrar a partida: ", err)
     })
 });
-//incompleto, continuar
+
+router.get('/match/:id/exit', ensureAuthenticated, (req, res, next) => {
+  let { id } = req.params;
+  let { username } = req.user;
+  User.findOne({username})
+    .then((user) =>{
+      User.findByIdAndUpdate(user.id,{ $pull: { matches: id}})
+        .then((result => {
+          Match.findByIdAndUpdate(id,{ $pull: { participants: user.id}})
+          .then((result) => {
+            console.log("Partida deletada com sucesso")
+            res.redirect(`/match/show/${id}`)
+          })
+          .catch((err) => console.log(err))
+        }))
+        .catch(err => console.log(err))
+    })
+
+});
+
 router.get('/match/:id/add/player', ensureAuthenticated, (req, res, next) => {
   const { id } = req.params;
+  const {username} = req.user;
   const user = req.user;
-  Match.findById(id)
-    .populate('owner')
-    .then(match => {
-     
-        res.render('match', { match, user})
-      
+  User.findOne({username})
+    .then((userBase) => {
+      Match.findByIdAndUpdate(id,{ $inc : {"numberOfParticipants" : 1}, $push: { participants: userBase.id}})
+      .then(match => {
+        User.findByIdAndUpdate(userBase.id,{ $push: { matches: match.id}})
+          .then((result) => {
+            res.redirect(`/match/show/${match.id}`)
+          })
+          .catch(err => console.log(err))
+      })
+      .catch(err => console.log(err))
     })
-  res.render('match-add', { user } )
+    .catch(err => console.log(err))
 });
 
 router.get('/match/add', ensureAuthenticated, (req, res, next) => {
@@ -220,9 +261,17 @@ router.post('/match/add', ensureAuthenticated, (req, res, next) => {
       field : field != "Other" ? field : undefined
     });
     newMatch.save()
-      .then( result => {
-          console.log(`Match ${result.title} criado com sucesso`);
-          res.redirect(`/matches/${savedLat}/${savedLng}`)
+      .then( match => {
+          console.log(`Match ${match.title} criado com sucesso`);
+          User.findByIdAndUpdate(user.id,{ $push: { matchesOwner: match.id}})
+            .then(user => {
+              if(user.location){
+                res.redirect(`/matches/${user.location.coordinates[1]}/${user.location.coordinates[0]}`)
+              }else {
+                res.redirect("/matches")
+              }
+            })
+            .catch(err => console.log(err))  
       } )
       .catch( err => console.log(`Ocorreu um erro ao criar match: ${err}`))
   

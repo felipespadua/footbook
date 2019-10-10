@@ -64,8 +64,10 @@
             </div>
             {{#if isOwner}}
               <button type="button" onclick='deleteMatch("{{match._id}}")' class="mt-2 mb-3 btn btn-red">Delete Match</button>
+            {{else if isParticipating}}
+              <button type="button" onclick='exitMatch("{{match._id}}")' class="mt-2 mb-3 btn btn-red">Exit Match</button>
             {{else}}
-              <button type="button" onclick='addPlayerToMatch("{{match._id}}")' class="mt-2 mb-3 btn btn-dark-green">Join Match</button>
+            <button type="button" onclick='addPlayerToMatch("{{match._id}}")' class="mt-2 mb-3 btn btn-dark-green">Join Match</button>
             {{/if}}
             <p class="pt-2">{{match.description}}</p>
           </div>

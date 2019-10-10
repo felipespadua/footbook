@@ -1,6 +1,6 @@
 <div class="container-fluid mt-5 pt-5 match-page">
     <div class="row d-flex justify-content-center">
-      <div class="col-11 col-md-10 match-info">
+      <div class="col-11 col-md-10 match-info mb-5">
         <div class="pt-3 row field-photos d-flex justify-content-between">
           <div class="col-12 field-title">
           
@@ -25,7 +25,8 @@
               <div class="mask waves-effect waves-light rgba-white-slight"></div>
             </a>
           </div>
-          <div class="pb-5 mb-2 mt-2 col-12 col-md-6 order-4 order-md-3 pt-3 players-div">
+          <div class="pb-5 mt-2 col-12 col-md-6 order-4 order-md-3 pt-3 players-div">
+            {{!-- PLAYERS LIST --}}
             <h3>Players</h3>
             <p><i class="fas fa-user"></i>&nbsp;&nbsp; {{match.owner.username}}</p>  <br>
             {{#each match.participants}}

@@ -10,7 +10,7 @@
   font-size: 1em; }
 
 html {
-  height: 100vh; }
+  height: calc(var(--vh, 1vh) * 100); }
 
 body {
   margin: 0;
@@ -21,7 +21,7 @@ body {
 
 .bg-start {
   background-image: url("/images/soccerbg.jpg");
-  background-size: 100% 100%;
+  background-size: cover;
   background-repeat: no-repeat; }
 
 *:focus {
@@ -35,7 +35,7 @@ body {
 
 .index-page {
   background-image: url("/footbook/public/images/soccerbg.jpg");
-  background-size: 100% 100%;
+  background-size: cover;
   background-repeat: no-repeat;
   height: 100vh; }
 
@@ -230,7 +230,12 @@ form label span.label-text {
   -webkit-transition: all 0.25s;
   transition: all 0.25s; }
 
-h2, h3, h4, h5, h6, p {
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
   color: white; }
 
 h1 {
@@ -365,7 +370,8 @@ html {
   background-repeat: no-repeat;
   background-attachment: fixed;
   height: 100vh; */
-  color: black; }
+  color: black;
+  height: 800px; }
 
 .field-title {
   color: black;
@@ -373,26 +379,26 @@ html {
 
 .players-div {
   overflow: auto;
-  height: 320px;
+  height: 520px;
   border: 1px solid rgba(207, 205, 205, 0) !important;
   border-radius: 5px !important;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.329) !important;
-  background-color: #282828; }
+  background-color: #282828;
+  margin-bottom: 100px; }
 
 .infos-div {
   border: 1px solid rgba(207, 205, 205, 0) !important;
   border-radius: 5px !important;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.329) !important;
   background-color: #282828;
-  height: 320px; }
+  height: 520px; }
 
 .match-add-page {
-  height: 120vh;
+  height: 100%;
   background-color: #0F0F0D;
   background-image: url("/images/newmatchbg.jpg");
   background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: cover; }
+  background-size: cover; }
 
 .container-add {
   background-color: rgba(19, 18, 18, 0.884);
@@ -406,7 +412,8 @@ html {
   height: 160px; }
 
 .card {
-  background-color: #282828; }
+  background-color: #282828;
+  height: 250px; }
 
 .filter-black {
   background-color: rgba(31, 31, 31, 0.507); }
@@ -417,10 +424,12 @@ html {
 .fixed-top {
   z-index: 5; }
 
+.img-info-home img {
+  width: 100%; }
+
 .nav-bar-main {
   width: 100%;
-  height: 12%;
-  background-color: rgba(255, 255, 255, 0); }
+  height: 12%; }
 
 .img-background {
   background-image: url("/images/homebg.jpg");
@@ -457,9 +466,20 @@ html {
 input:focus {
   background: #df141400; }
 
+.profile-page {
+  background-image: url("https://pixabay.com/get/55e0dd4b4352a914f6d1867dda6d49214b6ac3e45656714f7d2c79d695/burning-3088905_1920.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: black;
+  height: calc(var(--vh, 1vh) * 100); }
+
 .profile-cards {
-  background-color: #282828;
-  height: 100%; }
+  background-color: #131313e1;
+  height: auto;
+  border: 1px solid rgba(207, 205, 205, 0) !important;
+  border-radius: 5px !important;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.329) !important; }
 
 .profile-picture {
   height: 100%;
@@ -485,5 +505,22 @@ input:-webkit-autofill:active {
 
 .footer-text {
   font-size: 12px; }
+
+.icons-bottom {
+  height: 100%; }
+
+.loading-page {
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100%;
+  background-color: black;
+  position: absolute;
+  z-index: 4;
+  opacity: 1;
+  transition: 4s linear 1s;
+  display: none; }
+
+.matches-page {
+  position: absolute;
+  z-index: 3; }
 
 /*# sourceMappingURL=style.css.map */

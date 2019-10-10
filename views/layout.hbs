@@ -21,9 +21,9 @@
 
 <body>
   {{#if user}}
-  <div class="container-fluid fixed-top nav-bar mx-0 px-0 d-flex justify-content-center">
-    <div class="row d-flex justify-content-center nav-block">
-      <div class="pt-2 col-2 text-start logo-nav d-none d-md-block">
+  <div class="container-fluid fixed-top nav-bar mx-0 px-0">
+    <div class="row m-0 d-flex justify-content-center nav-block align-items-center">
+      <div class="col-2 text-start logo-nav d-none d-md-block">
         <img src="/images/footbooklogo.png" alt="footbok">
       </div>
       <div class="col-12 col-md-5 text-center d-flex align-items-center justify-content-center">
@@ -66,8 +66,8 @@
   {{#if user}}
   <div class="container-fluid fixed-bottom footer-page d-block d-sm-block d-md-none">
     <div class="row d-flex justify-content-between align-items-center">
-      <div class="col-3 d-flex justify-content-center align-items-center">
-        <div class="row pb-2">
+      <div class="col-3 d-flex justify-content-center">
+        <div class="row pb-2 icons-bottom">
           <div class="col-12 d-flex justify-content-center align-items-center pt-1">
             <a href="/matches"><i class="material-icons text-success2">search</i></a>
           </div>
@@ -77,7 +77,7 @@
         </div>
       </div>
       <div class="col-3 d-flex justify-content-center">
-        <div class="row pb-2">
+        <div class="row pb-2 icons-bottom">
           <div class="col-12 d-flex justify-content-center align-items-center pt-1">
             <a href="#"><i class="material-icons text-success2">group</i></a>
           </div>
@@ -87,7 +87,7 @@
         </div>
       </div>
       <div class="col-3 d-flex justify-content-center">
-        <div class="row pb-2">
+        <div class="row pb-2 icons-bottom">
           <div class="col-12 d-flex justify-content-center align-items-center pt-1">
             <a href="/match/add"><i class="material-icons text-success2">add_circle_outline</i></a>
           </div>
@@ -97,7 +97,7 @@
         </div>
       </div>
       <div class="col-3 d-flex justify-content-center">
-        <div class="row pb-2">
+        <div class="row pb-2 icons-bottom">
           <div class="col-12 d-flex justify-content-center align-items-center pt-1">
             <a href="/profile"><i class="material-icons text-success2">person_pin</i></a>
           </div>
@@ -111,7 +111,6 @@
   {{/if}}
 
 
-  
 
   <!-- JQuery -->
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

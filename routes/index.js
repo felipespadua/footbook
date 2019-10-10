@@ -11,7 +11,8 @@ const Field = require("../models/Field")
 
 
 const googleApiKey = process.env.GOOGLE_API_KEY;
-
+let savedLat
+let savedLng
 /* GET home page */
 router.get('/', (req, res, next) => {
   res.render('home');
@@ -77,8 +78,11 @@ router.post("/login", passport.authenticate("local", {
 
 router.get('/matches/:lat/:lng', ensureAuthenticated, (req, res, next) => {
   let {lat, lng } = req.params;
+  savedLat = lat;
+  savedLng = lng;
   const user = req.user;
   Match.find()
+    .populate("field")
     .then( matches => { 
       let updateMatches = matches.map((match) => {
         match = setDistance(match, lat, lng)
@@ -195,7 +199,8 @@ router.get('/profile', ensureAuthenticated, (req, res, next) => {
 router.post('/match/add', ensureAuthenticated, (req, res, next) => {
   console.log(req.body)
   const {username}  = req.user;
-  const {title, totalPlayers, description, field, matchTime ,date, place, participants, longitude, latitude }  = req.body;
+  // const {lat , lng} = req.params;
+  const {title, totalPlayers, description, field, latitude, longitude, matchTime ,date, place, participants }  = req.body;
   let location = {
     type: 'Point',
     coordinates: [longitude, latitude],
@@ -213,12 +218,10 @@ router.post('/match/add', ensureAuthenticated, (req, res, next) => {
       location,
       field : field != "Other" ? field : undefined
     });
-    // if(field)
-    // Field.find(field)
     newMatch.save()
       .then( result => {
           console.log(`Match ${result.title} criado com sucesso`);
-          res.redirect('/matches')
+          res.redirect(`/matches/${savedLat}/${savedLng}`)
       } )
       .catch( err => console.log(`Ocorreu um erro ao criar match: ${err}`))
   
@@ -281,7 +284,6 @@ router.get('/api/field/:id/location', ensureAuthenticated, (req, res, next) => {
     })
     .catch((err) => console.log(err))
 });
-
 
 
 

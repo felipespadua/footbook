@@ -1,83 +1,91 @@
 <div class="container-fluid mt-5 pt-5 match-page">
-    <div class="row d-flex justify-content-center">
-      <div class="col-11 col-md-10 match-info mb-5">
-        <div class="pt-3 row field-photos d-flex justify-content-between">
-          <div class="col-12 field-title">
-          
-            {{!-- MATCH TITLE --}}
-            <h1>{{match.title}}</h1>
-          </div>
-          <div class="col-12 col-md-6 view overlay field-img px-1 py-2 order-1">
-            {{!-- FIELD IMAGE --}}
-            <img
-                {{#if match.field}}
-                  src="{{match.field.imgPath}}/{{match.field.imgName}}"
-                {{else}}
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQtz1UsljuzVpF9sGiB5uU5mKVFDucOlxRl3Ro00hbX_Uq8m36W"
-                {{/if}}
-              class="img-fluid" alt="Sample image with waves effect.">
-            <a>
-              <div class="mask waves-effect waves-light rgba-white-slight"></div>
-            </a>
-          </div>
-          <div id="map" class="col-md-6 d-none d-sm-block order-2">
-            <a>
-              <div class="mask waves-effect waves-light rgba-white-slight"></div>
-            </a>
-          </div>
-          <div class="pb-5 mt-2 col-12 col-md-6 order-4 order-md-3 pt-3 players-div">
-            {{!-- PLAYERS LIST --}}
-            <h3>Players</h3>
-            <p><i class="fas fa-user"></i>&nbsp;&nbsp; {{match.owner.username}}</p>  <br>
-            {{#each match.participants}}
-              <i class="far fa-user"></i>&nbsp;&nbsp; <p> {{this.username}}</p> <br>
-            {{/each}}
+  <div class="row d-flex justify-content-center">
+    <div class="col-11 col-md-10 match-info" data-aos="fade-up">
+      <div class="pt-3 row field-photos d-flex justify-content-center">
+        <div class="col-12 field-title text-center">
 
+          {{!-- MATCH TITLE --}}
+          <h3>{{match.title}}</h3>
+        </div>
+        <div class="col-12 px-0">
+          <div class="row match-imgs d-flex justify-content-center">
+            <div class="col-11 col-md-6 view overlay field-img px-0 py-0 order-1">
+              {{!-- FIELD IMAGE --}}
+              <img {{#if match.field}} src="{{match.field.imgPath}}/{{match.field.imgName}}" {{else}}
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQtz1UsljuzVpF9sGiB5uU5mKVFDucOlxRl3Ro00hbX_Uq8m36W"
+                {{/if}} class="img-fluid" alt="Sample image with waves effect.">
+              <a>
+                <div class="mask waves-effect waves-light rgba-white-slight"></div>
+              </a>
+            </div>
+            <div id="map" class="col-md-6 d-none d-sm-block order-2">
+              <a>
+                <div class="mask waves-effect waves-light rgba-white-slight"></div>
+              </a>
+            </div>
           </div>
-          <div class="mt-2 col-12 col-md-6 pt-3 pb-4 order-3 order-md-4 infos-div">
-            <div>
-              <span class="d-flex">
-                <i class="material-icons">location_on</i>&nbsp;&nbsp;&nbsp;
-                {{#if match.field}}
+
+
+
+          <div class="row d-flex justify-content-center mb-0">
+            <div class="col-11 col-md-6 order-4 order-md-3 players-div pt-4">
+              {{!-- PLAYERS LIST --}}
+              <h3>Players</h3>
+              <p><i class="fas fa-user"></i>&nbsp;&nbsp; {{match.owner.username}}</p> <br>
+              {{#each match.participants}}
+              <i class="far fa-user"></i>&nbsp;&nbsp; <p> {{this.username}}</p> <br>
+              {{/each}}
+
+            </div>
+            <div class="col-11 col-md-6 order-3 order-md-4 infos-div pt-4">
+              <div>
+                <span class="d-flex">
+                  <i class="material-icons">location_on</i>&nbsp;&nbsp;&nbsp;
+                  {{#if match.field}}
                   <p>
                     {{match.field.name}}
-                  </p>  
+                  </p>
                   <p>
                     {{match.field.place}}
                   </p>
-                {{else}}
+                  {{else}}
                   <p>
                     {{match.location.place}}
-                  </p> 
-                {{/if}}
-              </span>
+                  </p>
+                  {{/if}}
+                </span>
+                <div class="pt-2 mb-3">
+                  <span class="d-flex">
+                    <i class="material-icons">access_time</i>&nbsp;&nbsp;&nbsp;&nbsp;
+                    {{!-- GAME TIME --}}
+                    <p>
+                      18h00
+                    </p>
+                  </span>
+                </div>
+              </div>
+              {{#if isOwner}}
+              <button type="button" onclick='deleteMatch("{{match._id}}")' class="mt-2 mb-3 btn btn-red">Delete
+                Match</button>
+              {{else}}
+              <button type="button" onclick='addPlayerToMatch("{{match._id}}")'
+                class="mt-2 mb-3 btn btn-dark-green">Join
+                Match</button>
+              {{/if}}
+              <p class="pt-2">{{match.description}}</p>
             </div>
-            <div class="pt-2 mb-3">
-              <span
-               class="d-flex">
-                <i class="material-icons">access_time</i>&nbsp;&nbsp;&nbsp;&nbsp;
-                {{!-- GAME TIME --}}
-               <p>
-                18h00
-               </p>
-              </span>
-            </div>
-            {{#if isOwner}}
-              <button type="button" onclick='deleteMatch("{{match._id}}")' class="mt-2 mb-3 btn btn-red">Delete Match</button>
-            {{else}}
-              <button type="button" onclick='addPlayerToMatch("{{match._id}}")' class="mt-2 mb-3 btn btn-dark-green">Join Match</button>
-            {{/if}}
-            <p class="pt-2">{{match.description}}</p>
           </div>
-          
+
         </div>
       </div>
     </div>
-
   </div>
-  <input display="none" type="hidden" id="latitude" value="{{lat}}"></input>
-  <input display="none" type="hidden" id="longitude" value="{{lng}}"></input>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="/javascripts/match.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key={{googleApiKey}}"></script>
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{googleApiKey}}&libraries=places"></script>
+
+</div>
+<input display="none" type="hidden" id="latitude" value="{{lat}}"></input>
+<input display="none" type="hidden" id="longitude" value="{{lng}}"></input>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="/javascripts/match.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{googleApiKey}}"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{googleApiKey}}&libraries=places">
+</script>

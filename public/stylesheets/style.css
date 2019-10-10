@@ -16,8 +16,9 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Raleway', sans-serif;
-  background-color: #1F1F1F;
-  min-height: 100%; }
+  background-color: black;
+  min-height: 100vh;
+  height: auto; }
 
 .bg-start {
   background-image: url("/images/soccerbg.jpg");
@@ -26,9 +27,6 @@ body {
 
 *:focus {
   outline: none; }
-
-.container-fluid {
-  height: 100%; }
 
 .row {
   height: 100%; }
@@ -40,6 +38,7 @@ body {
   height: 100vh; }
 
 .login-page {
+  height: 100vh;
   position: absolute;
   z-index: 15;
   background-color: rgba(0, 0, 0, 0.199);
@@ -47,7 +46,11 @@ body {
   opacity: 1;
   transition: opacity 0.5s ease-in-out; }
 
+.img-logo {
+  width: 80%; }
+
 .signup-page {
+  height: 100vh;
   position: absolute;
   z-index: 15;
   background-color: rgba(0, 0, 0, 0.199);
@@ -230,7 +233,10 @@ form label span.label-text {
   -webkit-transition: all 0.25s;
   transition: all 0.25s; }
 
-h2,
+h2 {
+  font-size: 7vw !important;
+  color: white; }
+
 h3,
 h4,
 h5,
@@ -338,6 +344,9 @@ html {
   font-weight: bolder;
   font-size: 1.2rem; }
 
+.card-text {
+  color: white !important; }
+
 .footer-page {
   height: 60px;
   background-color: #282828; }
@@ -345,6 +354,13 @@ html {
 .material-icons {
   font-size: 28px;
   color: #5FB146; }
+
+.field-img {
+  height: 100%;
+  width: 100%; }
+
+#map {
+  height: 100%; }
 
 .field-img img {
   width: 100%;
@@ -355,7 +371,7 @@ html {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.329) !important; }
 
 .field-photos {
-  height: 300px; }
+  height: 100%; }
 
 .match-info {
   /* border: 1px solid rgba(207, 205, 205, 0) !important;
@@ -365,17 +381,23 @@ html {
   height: auto; }
 
 .match-page {
-  /* background-image: url('https://pixabay.com/get/55e2d0404954ad14f6d1867dda6d49214b6ac3e45656714d7d287ed790/grass-3253361_1920.jpg');
-  background-size: 100% 100%;
+  background-image: url("https://pixabay.com/get/57e1dc424e57ac14f6d1867dda6d49214b6ac3e45656714e712e79d096/flood-light-1191450_1920.jpg");
+  background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  height: 100vh; */
   color: black;
-  height: 800px; }
+  min-height: 100vh;
+  height: auto;
+  padding-bottom: 250px; }
+
+.match-imgs {
+  height: 250px; }
 
 .field-title {
   color: black;
-  font-weight: bolder; }
+  font-weight: 800;
+  background-color: rgba(0, 0, 0, 0.363);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.329) !important; }
 
 .players-div {
   overflow: auto;
@@ -383,22 +405,24 @@ html {
   border: 1px solid rgba(207, 205, 205, 0) !important;
   border-radius: 5px !important;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.329) !important;
-  background-color: #282828;
-  margin-bottom: 100px; }
+  background-color: #0f0f0fea; }
 
 .infos-div {
   border: 1px solid rgba(207, 205, 205, 0) !important;
   border-radius: 5px !important;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.329) !important;
-  background-color: #282828;
+  background-color: #0f0f0fea;
   height: 520px; }
 
 .match-add-page {
-  height: 100%;
-  background-color: #0F0F0D;
-  background-image: url("/images/newmatchbg.jpg");
+  height: auto;
+  min-height: 100vh;
+  background-image: url("/images/matchesbg.jpg");
+  background-size: cover;
+  background-attachment: fixed;
   background-repeat: no-repeat;
-  background-size: cover; }
+  background-position: center;
+  background-color: black; }
 
 .container-add {
   background-color: rgba(19, 18, 18, 0.884);
@@ -412,7 +436,7 @@ html {
   height: 160px; }
 
 .card {
-  background-color: #282828;
+  background-color: #1b1b1bef;
   height: 250px; }
 
 .filter-black {
@@ -467,7 +491,7 @@ input:focus {
   background: #df141400; }
 
 .profile-page {
-  background-image: url("https://pixabay.com/get/55e0dd4b4352a914f6d1867dda6d49214b6ac3e45656714f7d2c79d695/burning-3088905_1920.jpg");
+  background-image: url("/images/profilepage.jpg");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -520,7 +544,14 @@ input:-webkit-autofill:active {
   display: none; }
 
 .matches-page {
+  background-image: url("/images/matchbg.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-color: black;
+  background-repeat: no-repeat;
   position: absolute;
-  z-index: 3; }
+  z-index: 3;
+  height: auto;
+  min-height: 100vh; }
 
 /*# sourceMappingURL=style.css.map */

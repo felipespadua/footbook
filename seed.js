@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const mongoose = require('mongoose');
 const Field = require('./models/Field');
 const Match = require('./models/Match');
@@ -41,7 +43,7 @@ let fields = [
 
 
 mongoose
-.connect('mongodb://localhost/footbook', {useNewUrlParser: true})
+.connect(process.env.MONGODB_URI, {useNewUrlParser: true})
 .then(x => {
   Field.collection.drop();
   let createFields = fields.map( field => {

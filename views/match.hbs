@@ -10,23 +10,22 @@
           <div class="col-12 col-md-6 view overlay field-img px-1 py-2 order-1">
             {{!-- FIELD IMAGE --}}
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTNm_7htW7pbnjD2ATaxVyVjJ0BtOzqW1pJiVSuu4PUvdlDP15j"
+                {{#if match.field}}
+                  src="{{match.field.imgPath}}/{{match.field.imgName}}"
+                {{else}}
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQtz1UsljuzVpF9sGiB5uU5mKVFDucOlxRl3Ro00hbX_Uq8m36W"
+                {{/if}}
               class="img-fluid" alt="Sample image with waves effect.">
             <a>
               <div class="mask waves-effect waves-light rgba-white-slight"></div>
             </a>
           </div>
           <div id="map" class="col-md-6 d-none d-sm-block order-2">
-            {{!-- MAP IMAGE --}}
-            {{!-- <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSkYFuf99VqE0xRDN1ncPJ1Asx9Tsd1owxkcASKHE1d9fVoba2a"
-              class="img-fluid" alt="Sample image with waves effect."> --}}
             <a>
               <div class="mask waves-effect waves-light rgba-white-slight"></div>
             </a>
           </div>
           <div class="pb-5 mb-2 mt-2 col-12 col-md-6 order-4 order-md-3 pt-3 players-div">
-            {{!-- PLAYERS LIST --}}
             <h3>Players</h3>
             <p><i class="fas fa-user"></i>&nbsp;&nbsp; {{match.owner.username}}</p>  <br>
             {{#each match.participants}}
@@ -38,11 +37,18 @@
             <div>
               <span class="d-flex">
                 <i class="material-icons">location_on</i>&nbsp;&nbsp;&nbsp;
-                {{!-- ADDRESS --}}
+                {{#if match.field}}
                   <p>
-                  Rua Frei Caneca, 168
+                    {{match.field.name}}
                   </p>  
-
+                  <p>
+                    {{match.field.place}}
+                  </p>
+                {{else}}
+                  <p>
+                    {{match.location.place}}
+                  </p> 
+                {{/if}}
               </span>
             </div>
             <div class="pt-2 mb-3">

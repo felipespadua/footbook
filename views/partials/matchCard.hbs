@@ -3,7 +3,11 @@
   <!-- Card image -->
   <div class="view view-cascade overlay">
     <img class="card-img-top"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQtz1UsljuzVpF9sGiB5uU5mKVFDucOlxRl3Ro00hbX_Uq8m36W"
+    {{#if this.field}}
+      src="{{this.field.imgPath}}/{{this.field.imgName}}"
+    {{else}}
+     src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQtz1UsljuzVpF9sGiB5uU5mKVFDucOlxRl3Ro00hbX_Uq8m36W"
+    {{/if}}
       alt="Card image cap">
     <a href="#!">
       <div class="mask rgba-white-slight"></div>

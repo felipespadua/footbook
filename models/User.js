@@ -9,7 +9,8 @@ const userSchema = new Schema({
   type: { type: String, enum: ['player', 'referee', 'admin'], default: 'player'},
   matches: [{ type: Schema.Types.ObjectId, ref: "Match"}] ,
   matchesOwner:  [{ type: Schema.Types.ObjectId, ref: "Match"}],
-  friends: [{ type: Schema.Types.ObjectId, ref: "User"}]
+  friends: [{ type: Schema.Types.ObjectId, ref: "User"}],
+  location: { type: { type: String }, coordinates: [Number], place: String},
 }, {
   timestamps: true
 });

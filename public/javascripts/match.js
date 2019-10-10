@@ -29,6 +29,13 @@ const deleteMatch = (id) => {
   let baseurl = window.location.origin;
   window.location.href = baseurl + '/match/delete/' + id;
 }
-
+const addPlayerToMatch = (id) => {
+  let baseurl = window.location.origin;
+  window.location.href = baseurl + `/match/${id}/add/player`
+}
+const exitMatch = (id) => {
+  let baseurl = window.location.origin;
+  window.location.href = baseurl + `/match/${id}/exit`
+}
 
 

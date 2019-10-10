@@ -82,13 +82,14 @@ router.get('/matches/:lat/:lng', ensureAuthenticated, (req, res, next) => {
   savedLng = lng;
   const user = req.user;
   Match.find()
+    .populate("owner")
     .populate("field")
     .then( matches => { 
       let updateMatches = matches.map((match) => {
         match = setDistance(match, lat, lng)
         let newMatch = new Match(match)
         return newMatch.save()
-          .then((result)=> console.log("Match atualiada", result))
+          .then((result)=> console.log("Match atualizada", result))
           .catch((err) => console.log(err))
       })
       Promise.all(updateMatches)

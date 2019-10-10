@@ -1,14 +1,14 @@
-<div class="container-fluid profile-page">
+<div class="container-fluid profile-page mt-5 mt-md-0">
   <div class="row d-flex justify-content-center align-items-center">
-    <div class="col-md-8 col-11 mt-5 mb-5" data-aos="fade-up">
-      <div class="row d-flex justify-content-center align-items-center text-center profile-cards mt-5 mb-5">
-        <div class="col-12 col-md-5">
+    <div class="col-lg-8 col-11 mt-4 mb-3" data-aos="fade-up">
+      <div class="row d-flex justify-content-center align-items-center text-center profile-cards mt-md-5 mb-5">
+        <div class="col-12 col-lg-5">
           <div class="row">
             <div class="col-12 profile-picture pt-4">
               <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSXVKS5uTi-80E5DGLy-OJM04jO2vOtovJQZt8d-pjyUpekR_0p"
                 class="img-fluid rounded-circle hoverable" alt="hoverable">
             </div>
-            <div class="col-12 pt-3">
+            <div class="col-12 pt-3 pb-3">
               <h2>
               {{user.username}}
               </h2>
@@ -19,7 +19,7 @@
           </div>
 
         </div>
-        <div class="col-12 col-md-5 d-flex justify-content-center pb-md-0 pb-5 mt-md-5 mt-0">
+        <div class="col-12 col-lg-5 d-flex justify-content-center pb-md-0 mt-md-5 mt-0">
           <form action="/" class="col-10 registration-form" method="POST">
           <label>
             <span class="label-text">Username</span>
@@ -37,7 +37,7 @@
             <span class="label-text">New Password</span>
             <input type="password" class="white-text" name="password">
           </label>
-          <div class="text-center pt-5 pb-5">
+          <div class="text-center pt-2 pb-5">
             <button type="submit" name="register" class="submit btn btn-elegant">Update Profile</button>
             <a href="/logout"><button type="button" class="btn btn-danger px-3 btn-sm"><i class="fas fa-power-off" aria-hidden="true"></i></button></a>
           </div>

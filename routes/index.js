@@ -152,7 +152,11 @@ router.get('/match/:id/add/player', ensureAuthenticated, (req, res, next) => {
 
 router.get('/match/add', ensureAuthenticated, (req, res, next) => {
   const user = req.user;
-  res.render('match-add', { user, googleApiKey} )
+  Field.find()
+    .then((fields) => {
+      res.render('match-add', { fields, user, googleApiKey} )
+    })
+ 
 });
 
 router.get('/profile', ensureAuthenticated, (req, res, next) => {
@@ -161,30 +165,38 @@ router.get('/profile', ensureAuthenticated, (req, res, next) => {
 });
 
 router.post('/match/add', ensureAuthenticated, (req, res, next) => {
-  const user = req.user;
-  const {title, totalPlayers, description, field, date, participants, longitude, latitude }  = req.body;
-  const owner = user;
+  console.log(req.body)
+  const {username}  = req.user;
+  const {title, totalPlayers, description, field, matchTime ,date, participants, longitude, latitude }  = req.body;
   let location = {
     type: 'Point',
 	  coordinates: [longitude, latitude]
   }
-  const newMatch = new Match({
-    title,
-    owner,
-    description,
-    totalPlayers,
-    participants,
-    date,
-    location,
-    field
-  });
-  newMatch.save()
-    .then( result => {
-        console.log(`Match ${name} criado com sucesso`);
-        res.render('matches', { message: `Match ${name} created successfully!`, user})
-    } )
-    .catch( err => console.log(`Ocorreu um erro ao criar match: ${err}`))
+  User.findOne({username})
+  .then(user => {
+    const newMatch = new Match({
+      title,
+      owner: user.id,
+      description,
+      totalPlayers,
+      participants,
+      date,
+      location,
+      field
+    });
+    // if(field)
+    // Field.find(field)
+    newMatch.save()
+      .then( result => {
+          console.log(`Match ${result.title} criado com sucesso`);
+          res.redirect('/matches')
+      } )
+      .catch( err => console.log(`Ocorreu um erro ao criar match: ${err}`))
+  
 
+   })
+  .catch((err) => console.log(err))
+  
 });
 
 router.get('/match/edit/:id', ensureAuthenticated, (req, res, next) => {

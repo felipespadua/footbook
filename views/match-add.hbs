@@ -29,19 +29,20 @@
               </label>
               <label class="pt-3">
                 <span class="label-text">Stadium</span>
-                <select id="stadium" class="browser-default custom-select">
-                  <option selected value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Ironhack</option>
-                  <option id="other" value="4">Other</option>
+                <select name="field" id="stadium" class="browser-default custom-select">
+                  <option selected=true value="select">Select a field</option>
+                  {{#each fields}}
+                     <option value="{{this.id}}">{{this.name}}</option>
+                  {{/each}}
+                  <option value="Other" name="Other">Other</option>
                 </select>
               </label>
-              <label id="location" class="pt-3" style="visibility: hidden">
+              <label id="locationlabel" class="pt-3">
                 <span class="label-text">Location</span>
                 <input id="autocompleteNewMatch" class="text-white" required name="location">
-                <input type="hidden" id="location" name="location2" />
-                <input type="hidden" id="locationLat" name="locationLat" />
-                <input type="hidden" id="locationLng" name="locationLng" />
+                <input type="hidden" id="locationNewMatch" name="street" />
+                <input type="hidden" id="newMatchLat" name="latitude" />
+                <input type="hidden" id="newMatchLng" name="longitude" />
               </label>
             </div>
             <div class="col-12 text-center pt-4 d-flex justify-content-center">

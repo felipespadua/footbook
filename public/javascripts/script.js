@@ -48,21 +48,6 @@ function initialize() {
           .catch((err) => console.log("Ocorreu um erro ao enviar localizacao:", err))
        
     });
-    var newMatch = document.getElementById('autocompleteNewMatch');
-    var autocompleteNewMatch = new google.maps.places.Autocomplete(newMatch);
-      google.maps.event.addListener(autocompleteNewMatch, 'place_changed', function () {
-          var place = autocompleteNewMatch.getPlace();
-          document.getElementById('location').value = place.name;
-          document.getElementById('locationLat').value = place.geometry.location.lat();
-          document.getElementById('locationLng').value = place.geometry.location.lng();
-          let baseurl = window.location.origin;
-          console.log(place)
-          localStorage.setItem("place",place.formatted_address)
-          apiHandler.setLocation( place.geometry.location.lat(),  place.geometry.location.lng(), place.name)
-            .then(() => {
-              console.log("Localizacao enviada com sucesso")
-              window.location.href = baseurl + '/matches';
-            })
-      });
+    
 }
 google.maps.event.addDomListener(window, 'load', initialize);

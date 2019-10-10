@@ -1,12 +1,14 @@
-/* eslint-disable no-cond-assign */
 document.addEventListener('DOMContentLoaded', () => {
+  var newMatch = document.getElementById('autocompleteNewMatch');
+  var autocompleteNewMatch = new google.maps.places.Autocomplete(newMatch);
+  google.maps.event.addListener(autocompleteNewMatch, 'place_changed', function () {
+      var place = autocompleteNewMatch.getPlace();
+      document.getElementById('locationNewMatch').value = place.name;
+      document.getElementById('newMatchLat').value = place.geometry.location.lat();
+      document.getElementById('newMatchLng').value = place.geometry.location.lng();
+  });
 
-  // const stadium = document.getElementById('other');
-  const location = document.getElementById('location');
-
-  if (document.getElementById("one").selected = true) {
-    location.style.visibility = 'visible';
-  } else {
-    location.style.visibility = 'hidden';
-  }
+ 
 }, false);
+
+

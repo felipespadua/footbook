@@ -13,27 +13,28 @@
         </div>
       </div>
     </div>
-    <div class="col-10 pb-5 mt-3">
-      {{#if hasMatchesOwner}}
-        <h3>Created:</h3>
+    <div class="col-10 pb-5 mt-3">    
         <div class="row d-flex justify-content-around">
-          {{#each matchesOwner}}
+         {{#if hasMatchesOwner}}
+            <h3>Created:</h3>
+            {{#each matchesOwner}}
+              {{> matchCard this}}
+            {{/each}}
+          {{/if}}
+        </div>
+    </div>
+     <div class="col-10 pb-5 mt-3">    
+        <div class="row d-flex justify-content-around">
+         {{#if hasMatchesPart}}
+            <h3>Joined:</h3>
+          {{#each matchesPart}}
             {{> matchCard this}}
           {{/each}}
+          {{/if}}
         </div>
-      {{/if}}
-      {{#if hasMatchesPart}}
-       <h3>Joined:</h3>
-      <div class="row d-flex justify-content-around">
-        {{#each matchesPart}}
-          {{> matchCard this}}
-        {{/each}}
-      </div>
-    {{/if}}
     </div>
   </div>
 </div>
-
 
 
 <script src="https://maps.googleapis.com/maps/api/js?key={{googleApiKey}}"></script>

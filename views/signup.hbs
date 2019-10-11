@@ -3,7 +3,7 @@
     <div class="col-10 container-signup">
       <header>
         <h1>
-          <img src="/images/footbooklogo.png" alt="Logo">
+          <img class="img-logo" src="/images/footbooklogo.png" alt="Logo">
         </h1>
       </header>
       <div class="row d-flex justify-content-center">
@@ -18,14 +18,16 @@
           </label>
           <label class="password">
             <span class="label-text">Password</span>
-            <input type="password" class="white-text" name="password">
+            <input id="password" type="password" class="white-text" name="password">
+            <meter max="4" id="password-strength-meter"></meter>
+            <p id="password-strength-text"></p>
           </label>
           <div class="text-center pt-5">
             <button type="submit" name="register" class="submit btn btn-elegant">Sign Up</button>
             {{!-- <button type="submit" class="submit" name="register">Sign Up</button> --}}
           </div>
           {{#if message}}
-            <div class="error-message text-center">{{message}}</div>
+          <div class="error-message text-center">{{message}}</div>
           {{/if}}
         </form>
 
@@ -33,3 +35,5 @@
     </div>
   </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
+<script src="/javascripts/signup.js"></script>

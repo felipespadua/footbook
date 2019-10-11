@@ -340,7 +340,7 @@ html {
 
 .nav-bar {
 	width: 100%;
-	height: 12%;
+	height: 14%;
 	border-bottom: 1px solid #282828 !important;
 	border-radius: 4px !important;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
@@ -385,7 +385,7 @@ html {
 
 .text-success2 {
 	color: rgb(196, 196, 196) !important;
-	font-size: .85rem;
+	font-size: 12px;
 	font-weight: 700;
 }
 
@@ -459,7 +459,7 @@ html {
 }
 
 .match-page {
-	background-image: url('https://pixabay.com/get/57e1dc424e57ac14f6d1867dda6d49214b6ac3e45656714e712e79d096/flood-light-1191450_1920.jpg');
+	background-image: url('/images/matchbg2.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed; 
@@ -481,8 +481,8 @@ html {
 }
 
 .players-div {
-	overflow: auto;
-	height: 520px;
+	min-height: 200px;
+	height: 100%;
 	border: 1px solid rgba(207, 205, 205, 0) !important;
 	border-radius: 5px !important;
 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.329) !important;
@@ -494,7 +494,8 @@ html {
 	border-radius: 5px !important;
 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.329) !important;
 	background-color: #0f0f0fea;
-	height: 520px;
+	height: 100%;
+	min-height: 200px;
 }
 
 // PAGE ADD NEW MATCH
@@ -642,11 +643,16 @@ input:-webkit-autofill:active {
 }
 
 .footer-text {
-	font-size: 12px;
+	font-size: 60%;
+}
+
+.footer-text-div {
+	width: 100%;
 }
 
 .icons-bottom {
 	height: 100%;
+	width: 100%;
 }
 
 .loading-page {
@@ -661,13 +667,49 @@ input:-webkit-autofill:active {
 }
 
 .matches-page {
-	background-image: url('/images/matchbg.jpg');
+	background-image: url('/images/matchesbg5.jpg');
 	background-size: cover;
 	background-attachment: fixed;
-	background-color: rgb(0, 0, 0);
+	background-color: rgb(20, 20, 20);
 	background-repeat: no-repeat;
 	position: absolute;
 	z-index: 3;
 	height: auto;
 	min-height: 100vh;
 }
+.btn.btn-sm {
+	padding: .2rem 1.1rem;
+	font-size: 0.84rem;
+}
+
+//SIGN UP PAGE
+
+meter {
+  /* Reset the default appearance */
+
+
+  margin: 0 auto 1em;
+  width: 100%;
+  height: 0.5em;
+
+  /* Applicable only to Firefox */
+  background: none;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+meter::-webkit-meter-bar {
+  background: none;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+meter[value="1"]::-webkit-meter-optimum-value { background: red; }
+meter[value="2"]::-webkit-meter-optimum-value { background: yellow; }
+meter[value="3"]::-webkit-meter-optimum-value { background: orange; }
+meter[value="4"]::-webkit-meter-optimum-value { background: green; }
+
+/* Gecko based browsers */
+meter[value="1"]::-moz-meter-bar { background: red; }
+meter[value="2"]::-moz-meter-bar { background: yellow; }
+meter[value="3"]::-moz-meter-bar { background: orange; }
+meter[value="4"]::-moz-meter-bar { background: green; }
+

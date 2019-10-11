@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('autocompleteSearch').value = localStorage.getItem("place")
 }, false);
+
+let apiHandler = new ApiHandler()
 const signUpPage = () => {
   let baseurl = window.location.origin;
   window.location.href = baseurl + '/signup';
@@ -18,13 +20,6 @@ const createNewMatch = () => {
   let baseurl = window.location.origin;
   window.location.href = baseurl + '/match/add';
 }
-// function initialize() {
-//   var input = document.getElementById('autocomplete');
-//   new google.maps.places.Autocomplete(input);
-// }
-
-// google.maps.event.addDomListener(window, 'load', initialize);
-
 
 
 
@@ -40,7 +35,6 @@ function initialize() {
         document.getElementById('locationLng').value = place.geometry.location.lng();
         let baseurl = window.location.origin;    
         localStorage.setItem("place",place.formatted_address)
-        console.log(place)
         apiHandler.setLocation(place.geometry.location.lat(), place.geometry.location.lng(), place.name)
           .then(() => {
             console.log("Localizacao enviada com sucesso")
@@ -61,8 +55,8 @@ window.addEventListener('resize', () => {
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 });
 
-document.getElementById("loading").style.display = "block"
 if (navigator.geolocation) {
+  document.getElementById("loading").style.display = "block"
   navigator.geolocation.getCurrentPosition(function (position) {
     const user_location = {
       lat: position.coords.latitude,
@@ -70,20 +64,30 @@ if (navigator.geolocation) {
     };
     document.getElementById('locationLat').value =  position.coords.latitude;
     document.getElementById('locationLng').value =  position.coords.longitude;
-    const apiHandler = new ApiHandler();     
-    apiHandler.setLocation(user_location.lat, user_location.lng)
-      .then(() => {
-        console.log("Localizacao enviada com sucesso")
-        // let baseurl = window.location.origin;
-        // window.location.href = baseurl + `/matches/${position.coords.latitude}/${position.coords.longitude}`;
-        // localStorage.setItem("reloaded", true)
-        document.getElementById("loading").style.display = "none"
-      })
-      .catch((err) =>{
-        document.getElementById("loading").style.display = "none"
-        console.log("Ocorreu um erro ao enviar localizacao:", err)
-      })
+    document.getElementById("loading").style.display = "none"
   })
 }else {
   document.getElementById("loading").style.display = "none"
 }
+var id
+
+function error (err) {
+  let baseurl = window.location.origin; 
+  let locationCode = localStorage.getItem("locationCode")
+  if(locationCode != 3){
+    if (err.code == err.PERMISSION_DENIED){
+      console.log(err)
+      window.location.href = baseurl + '/matches/clearlocation';
+      document.getElementById("loading").style.display = "none";
+      localStorage.setItem("locationCode", 3)
+    }
+  }else{
+    document.getElementById("loading").style.display = "none";
+  }
+}
+  
+function success(){
+
+}
+
+id = navigator.geolocation.watchPosition(success,error);

@@ -12,7 +12,8 @@ const matchSchema = new Schema({
   field: { type: Schema.Types.ObjectId , ref: "Field"},
   numberOfParticipants: { type: Number, default: 1 },
   distance: {type: String, default: undefined},
-  place: String
+  place: String,
+  matchTime: {type: String}
 }, {
   timestamps: true
 });

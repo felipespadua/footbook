@@ -1,0 +1,44 @@
+<div class="container-fluid pt-md-5 mt-5 matches-page">
+  <div class="row d-flex justify-content-center pt-md-0 pt-5">
+    <div class="col-10 col-md-8 title-page mb-3 d-block d-sm-block d-md-none">
+      <div class="row">
+        <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start align-items-center">
+          <h2>Find your match!</h2>
+        </div>
+        <div class="col-12 col-md-6 d-flex justify-content-around align-items-center">
+          <button type="button" class="btns-matchs btn btn-outline-success waves-effect btn-sm"
+            onclick="createNewMatch()">Create Match</button>
+          <button type="button" class="btns-matchs btn btn-outline-light btn-sm" onclick="showMyMatches()">My
+            Matches</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-10 pb-5 mt-3">
+      {{#if hasMatchesOwner}}
+        <h3>Created:</h3>
+        <div class="row d-flex justify-content-around">
+          {{#each matchesOwner}}
+            {{> matchCard this}}
+          {{/each}}
+        </div>
+      {{/if}}
+      {{#if hasMatchesPart}}
+       <h3>Joined:</h3>
+      <div class="row d-flex justify-content-around">
+        {{#each matchesPart}}
+          {{> matchCard this}}
+        {{/each}}
+      </div>
+    {{/if}}
+    </div>
+  </div>
+</div>
+
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key={{googleApiKey}}"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{googleApiKey}}&libraries=places">
+</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/javascripts/apiHelper.js"></script>
+<script src="/javascripts/matches.js"></script>

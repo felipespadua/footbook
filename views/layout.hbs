@@ -66,6 +66,19 @@
   </div>
   {{/if}}
   {{{body}}}
+  <div id="loading" class="container-fluid loading-page">
+    <div class="row">
+      <div class="col-12">
+        <div class="row d-flex justify-content-center align-items-center">
+          <div class="col-2 d-flex justify-content-center align-items-top">
+            <div class="spinner-border text-light" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   {{#if user}}
   <div class="container-fluid fixed-bottom footer-page d-block d-sm-block d-md-none">
     <div class="row d-flex justify-content-between align-items-center">

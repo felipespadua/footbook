@@ -10,7 +10,7 @@ const matchSchema = new Schema({
   date: { type: Date, required: true },
   location: { type: { type: String }, coordinates: [Number], place: String},
   field: { type: Schema.Types.ObjectId , ref: "Field"},
-  numberOfParticipants: { type: Number, default: 1 },
+  numberOfParticipants: { type: Number },
   distance: {type: String, default: undefined},
   place: String,
   matchTime: {type: String}

@@ -344,12 +344,16 @@ router.post('/match/add', ensureAuthenticated, (req, res, next) => {
       date,
       location,
       field : field != "Other" ? field : undefined,
-      matchTime
-    });
+      matchTime,
+      numberOfParticipants: 1
+    }); 
+    
     newMatch.save()
       .then( match => {
+        console.log(match)
           User.findByIdAndUpdate(user.id,{ $push: { matchesOwner: match.id}})
             .then(user => {
+
                 res.redirect("/matches")              
             })
             .catch(err => console.log(err))  

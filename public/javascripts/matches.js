@@ -18,8 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = baseurl + `/matches/${position.coords.latitude}/${position.coords.longitude}`;
             // localStorage.setItem("reloaded", true)
             // window.location.href = baseurl + '/matches';
-            localStorage.setItem("reloaded", true)
             document.getElementById("loading").style.display = "none"
+            localStorage.setItem("reloaded", true)
+           
           })
           .catch((err) =>{
             document.getElementById("loading").style.display = "none"

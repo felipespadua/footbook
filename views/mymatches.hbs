@@ -14,24 +14,24 @@
       </div>
     </div>
     <div class="col-10 pb-5 mt-3">    
-        <div class="row d-flex justify-content-around">
          {{#if hasMatchesOwner}}
             <h3>Created:</h3>
+        <div class="row d-flex justify-content-around">
             {{#each matchesOwner}}
               {{> matchCard this}}
             {{/each}}
-          {{/if}}
         </div>
+          {{/if}}
     </div>
      <div class="col-10 pb-5 mt-3">    
-        <div class="row d-flex justify-content-around">
          {{#if hasMatchesPart}}
             <h3>Joined:</h3>
+        <div class="row d-flex justify-content-around">
           {{#each matchesPart}}
             {{> matchCard this}}
           {{/each}}
-          {{/if}}
         </div>
+          {{/if}}
     </div>
   </div>
 </div>

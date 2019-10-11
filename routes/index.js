@@ -85,25 +85,16 @@ router.get('/matches/:lat/:lng', ensureAuthenticated, (req, res, next) => {
   }
   User.findOneAndUpdate({username},{ location : userSearchLocation})
     .then((result) => {
+      console.log("A")
       Match.find()
         .populate("owner")
         .populate("field")
-        .then( matches => { 
-          let updateMatches = matches.map((match) => {
-            match = setDistance(match, lat, lng)
-            let newMatch = new Match(match)
-            return newMatch.save()
-              .then((result)=> console.log("Match atualizada", result))
-              .catch((err) => console.log(err))
-          })
-          Promise.all(updateMatches)
-            .then(() => {
-              matches = orderByDistance(matches)
-              res.render('matches', { matches , user , googleApiKey} )
-              // res.redirect("/matches")
-            })
-            .catch((err) => console.log(err))
-          
+        .then( matches => {
+            // matches.map(match => setDistance(match, lat, lng))
+            // console.log(matches)
+            // matches = orderByDistance(matches)
+            // res.render('matches', { matches , user , googleApiKey} )
+            res.redirect("/matches")
         })
         .catch( err => {
           console.log("Ocorreu um erro ao encontrar as partidas: ", err)
@@ -112,29 +103,118 @@ router.get('/matches/:lat/:lng', ensureAuthenticated, (req, res, next) => {
     .catch((err) => console.log(err))
 });
 
+// router.get('/matches/:lat/:lng', ensureAuthenticated, (req, res, next) => {
+//   let {lat, lng } = req.params;
+//   const user = req.user;
+//   const username = req.user.username;
+//   let userSearchLocation = {
+//     coordinates: [lng,lat]
+//   }
+//   User.findOneAndUpdate({username},{ location : userSearchLocation})
+//     .then((result) => {
+//       console.log("A")
+//       Match.find()
+//         .populate("owner")
+//         .populate("field")
+//         .then( matches => { 
+//           let updateMatches = matches.map((match) => {
+//             match = setDistance(match, lat, lng)
+//             let newMatch = new Match(match)
+//             return newMatch.save()
+//               .then((result)=> console.log("Match atualizada"))
+//               .catch((err) => console.log(err))
+//           })
+//           Promise.all(updateMatches)
+//             .then(() => {
+//               matches = orderByDistance(matches)
+//               res.render('matches', { matches , user , googleApiKey} )
+//               // res.redirect("/matches")
+//             })
+//             .catch((err) => console.log(err))
+          
+//         })
+//         .catch( err => {
+//           console.log("Ocorreu um erro ao encontrar as partidas: ", err)
+//         })
+//     })
+//     .catch((err) => console.log(err))
+// });
+
 
 router.get('/matches', ensureAuthenticated, (req, res, next) => {
   const user = req.user;
-  Match.find()
-    .populate("owner")
-    .populate("field")
-    .then( matches => { 
-      matches = orderByDistance(matches)
-      console.log(matches)
-      res.render('matches', { matches , user , googleApiKey} )
+  const username = req.user.username;
+  User.findOne({username})
+    .then(user => {
+      Match.find()
+        .populate("owner")
+        .populate("field")
+        .then( matches => { 
+          if(user.location.coordinates != undefined && user.location.coordinates != null){
+            matches.map(match => setDistance(match, user.location.coordinates[1], user.location.coordinates[0]))
+            matches = orderByDistance(matches)
+          }
+          res.render('matches', { matches , user , googleApiKey} )
+        })
+        .catch( err => {
+          console.log("Ocorreu um erro ao encontrar as partidas: ", err)
+        })
+
     })
     .catch( err => {
-      console.log("Ocorreu um erro ao encontrar as partidas: ", err)
+      console.log("Ocorreu um erro ao encontrar o usuario: ", err)
+    })
+});
+
+router.get('/matches/clearlocation', ensureAuthenticated, (req, res, next) => {
+  let { username } = req.user;
+  User.findOneAndUpdate({username},{ location : undefined})
+    .then(() => {
+      res.redirect('/matches')
+    })
+    .catch(err => console.log(err)) 
+});
+
+router.get('/mymatches', ensureAuthenticated, (req, res, next) => {
+  const user = req.user;
+  const username = req.user.username;
+  console.log("B")
+  User.findOne({username}, "matches matchesOwner")
+    .populate({
+      path: 'matches',
+      populate: { path: 'field' }
+    })
+    .populate({
+      path: 'matches',
+      populate: { path: 'owner' }
+    })
+    .populate({
+      path: 'matchesOwner',
+      populate: { path: 'field' }
+    })
+    .populate({
+      path: 'matchesOwner',
+      populate: { path: 'owner' }
+    })
+    .then(matches => {
+      let matchesPart = matches.matches
+      let matchesOwner = matches.matchesOwner
+      if(user.location.coordinates != undefined && user.location.coordinates != null){
+        matchesPart.map(match => setDistance(match, user.location.coordinates[1], user.location.coordinates[0]))
+        matchesOwner.map(match => setDistance(match, user.location.coordinates[1], user.location.coordinates[0]))
+        matchesPart = orderByDistance(matchesPart)
+        matchesOwner = orderByDistance(matchesOwner)
+      }
+      let hasMatchesOwner = matchesOwner.length > 0 ? true : false
+      let hasMatchesPart = matchesPart.length > 0 ? true : false
+      res.render('mymatches', { matchesPart, matchesOwner, hasMatchesOwner, hasMatchesPart , user , googleApiKey} )
+    })
+    .catch( err => {
+      console.log("Ocorreu um erro ao encontrar o usuario: ", err)
     })
 });
 
 
-// router.post('/matches', ensureAuthenticated, (req, res, next) => {
-//   lat = req.body.lat;
-//   lng = req.body.lng;
-//   res.re('/matches')
- 
-// });
 router.get('/match/delete/:id', ensureAuthenticated, (req, res, next) => {
   let { id } = req.params;
   let { username } = req.user;
@@ -143,7 +223,7 @@ router.get('/match/delete/:id', ensureAuthenticated, (req, res, next) => {
       User.findOne({username})
         .then((user) =>{
           if(match.owner == user.id){
-            User.findByIdAndUpdate(user.id,{ $pull: { matchesOwner: match.id}})
+            User.findByIdAndUpdate(user.id,{ $inc : {"numberOfParticipants" : -1}, $pull: { matchesOwner: match.id}})
               .then((result => {
                 Match.findByIdAndDelete(match.id)
                 .then((result) => {
@@ -165,20 +245,28 @@ router.get('/match/delete/:id', ensureAuthenticated, (req, res, next) => {
 router.get('/match/show/:id', ensureAuthenticated, (req, res, next) => {
   const { id } = req.params;
   const user = req.user;
+  let lat,lng
   Match.findById(id)
     .populate('owner')
     .populate('participants')
     .populate('field')
     .then( match => {
         let isOwner = match.owner.username === user.username ? true : false;
-        let lat = match.location.coordinates[1];
-        let lng = match.location.coordinates[0];
+        if(match.field == undefined){
+          lat = match.location.coordinates[1];
+          lng = match.location.coordinates[0];
+        }else {
+          match.location = match.field.location
+          lat = match.field.location.coordinates[1];
+          lng = match.field.location.coordinates[0];
+        }
         let isParticipating = false
         match.participants.forEach(participant => {
             if(participant.username == user.username){
               isParticipating = true
             }
         });
+        console.log(match)
         res.render('match', { match, user , isOwner, isParticipating , lat, lng , googleApiKey} )
     })
     .catch( err => {
@@ -195,7 +283,6 @@ router.get('/match/:id/exit', ensureAuthenticated, (req, res, next) => {
         .then((result => {
           Match.findByIdAndUpdate(id,{ $pull: { participants: user.id}})
           .then((result) => {
-            console.log("Partida deletada com sucesso")
             res.redirect(`/match/show/${id}`)
           })
           .catch((err) => console.log(err))
@@ -239,9 +326,7 @@ router.get('/profile', ensureAuthenticated, (req, res, next) => {
 });
 
 router.post('/match/add', ensureAuthenticated, (req, res, next) => {
-  console.log(req.body)
   const {username}  = req.user;
-  // const {lat , lng} = req.params;
   const {title, totalPlayers, description, field, latitude, longitude, matchTime ,date, place, participants }  = req.body;
   let location = {
     type: 'Point',
@@ -258,18 +343,14 @@ router.post('/match/add', ensureAuthenticated, (req, res, next) => {
       participants,
       date,
       location,
-      field : field != "Other" ? field : undefined
+      field : field != "Other" ? field : undefined,
+      matchTime
     });
     newMatch.save()
       .then( match => {
-          console.log(`Match ${match.title} criado com sucesso`);
           User.findByIdAndUpdate(user.id,{ $push: { matchesOwner: match.id}})
             .then(user => {
-              if(user.location){
-                res.redirect(`/matches/${user.location.coordinates[1]}/${user.location.coordinates[0]}`)
-              }else {
-                res.redirect("/matches")
-              }
+                res.redirect("/matches")              
             })
             .catch(err => console.log(err))  
       } )

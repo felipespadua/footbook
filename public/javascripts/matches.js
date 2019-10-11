@@ -1,7 +1,8 @@
-document.getElementById("loading").style.display = "block"
+
 document.addEventListener('DOMContentLoaded', () => {
-  // if(!localStorage.getItem("reloaded")){
+  if(!localStorage.getItem("reloaded")){
     if (navigator.geolocation) {
+      document.getElementById("loading").style.display = "block"
       navigator.geolocation.getCurrentPosition(function (position) {
         const user_location = {
           lat: position.coords.latitude,
@@ -13,9 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
         apiHandler.setLocation(user_location.lat, user_location.lng)
           .then(() => {
             console.log("Localizacao enviada com sucesso")
-            // let baseurl = window.location.origin;
-            // window.location.href = baseurl + `/matches/${position.coords.latitude}/${position.coords.longitude}`;
+            let baseurl = window.location.origin;
+            window.location.href = baseurl + `/matches/${position.coords.latitude}/${position.coords.longitude}`;
             // localStorage.setItem("reloaded", true)
+            // window.location.href = baseurl + '/matches';
+            localStorage.setItem("reloaded", true)
             document.getElementById("loading").style.display = "none"
           })
           .catch((err) =>{
@@ -26,5 +29,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }else{
       document.getElementById("loading").style.display = "none"
     }
-  // }
+  }
 }, false);
